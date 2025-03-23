@@ -23,12 +23,12 @@
             <th>Dirección</th>
             <th>DNI</th>
             <th>Teléfono</th>
-            <th>Prentesco</th>
-            <th>Cuenta Corriente</th>
+            <th>Es PATI</th>
+            <th>Es PAP</th>
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>+
+    <tbody>
         @if($profesionales->count() > 0)
         @foreach($profesionales as $profesional)
         <tr>
@@ -39,7 +39,8 @@
             <td class="align-middle">{{ $profesional->direccion }}</td>
             <td class="align-middle">{{ $profesional->dni }}</td>
             <td class="align-middle">{{ $profesional->telefono }}</td>
-            <td class="align-middle">{{ $profesional->parentesco }}</td>
+            <td class="align-middle">{{ $profesional->esPati ? 'Sí' : 'No'}}</td>
+            <td class="align-middle">{{ $profesional->esPap ? 'Sí' : 'No'}}</td>
             <td class="align-middle">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <a href="{{ route('profesionales.show', $profesional->id) }}" type="button"

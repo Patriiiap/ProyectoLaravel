@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('dni')->unique();
             $table->string('telefono');
-            $table->boolean('esPati');
-            $table->boolean('esPap');
+            $table->boolean('esPati')->default(false);
+            $table->boolean('esPap')->default(false);
             $table->timestamps();
         });
     }

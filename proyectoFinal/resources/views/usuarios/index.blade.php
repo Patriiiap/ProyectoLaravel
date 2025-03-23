@@ -29,7 +29,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>+
+    <tbody>
         @if($usuarios->count() > 0)
         @foreach($usuarios as $usuario)
         <tr>
@@ -39,10 +39,10 @@
             <td class="align-middle">{{ $usuario->direccion }}</td>
             <td class="align-middle">{{ $usuario->dni }}</td>
             <td class="align-middle">{{ $usuario->fecha_nacimiento }}</td>
-            <td class="align-middle">{{ $usuario->grado_discapacidad }}</td>
+            <td class="align-middle">{{ $usuario->grado_discapacidad . '%'}}</td>
             <td class="align-middle">{{ $usuario->descripcion }}</td>
-            <td class="align-middle">{{ $usuario->esMenor }}</td>
-            <td class="align-middle">{{ $usuario->id_tutor }}</td>
+            <td class="align-middle">{{ $usuario->esMenor ? 'Sí' : 'No'}}</td>
+            <td class="align-middle">{{ $usuario->id_tutor}}</td>
             <td class="align-middle">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <a href="{{ route('usuarios.show', $usuario->id) }}" type="button"

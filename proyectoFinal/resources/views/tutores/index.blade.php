@@ -28,7 +28,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>+
+    <tbody>
         @if($tutores->count() > 0)
         @foreach($tutores as $tutor)
         <tr>
@@ -40,6 +40,7 @@
             <td class="align-middle">{{ $tutor->dni }}</td>
             <td class="align-middle">{{ $tutor->telefono }}</td>
             <td class="align-middle">{{ $tutor->parentesco }}</td>
+            <td class="align-middle">{{ $tutor->cuenta_corriente }}</td>
             <td class="align-middle">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <a href="{{ route('tutores.show', $tutor->id) }}" type="button" class="btn btn-secondary">Detail</a>

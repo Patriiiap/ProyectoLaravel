@@ -46,8 +46,7 @@
             <th>Id</th>
             <th>Username</th>
             <th>Nombre</th>
-            <th>Apellidos</th>
-            <th>Dirección</th>
+            <th>Email</th>
             <th>DNI</th>
             <th>Teléfono</th>
             <th>Es PATI</th>
@@ -61,9 +60,8 @@
         <tr>
             <td class="align-middle">{{ $profesional->id }}</td>
             <td class="align-middle">{{ $profesional->username }}</td>
-            <td class="align-middle">{{ $profesional->nombre }}</td>
-            <td class="align-middle">{{ $profesional->apellidos }}</td>
-            <td class="align-middle">{{ $profesional->direccion }}</td>
+            <td class="align-middle">{{ $profesional->nombre . " " . $profesional->apellidos}}</td>
+            <td class="align-middle">{{ $profesional->email }}</td>
             <td class="align-middle">{{ $profesional->dni }}</td>
             <td class="align-middle">{{ $profesional->telefono }}</td>
             <td class="align-middle">{{ $profesional->esPati ? 'Sí' : 'No'}}</td>

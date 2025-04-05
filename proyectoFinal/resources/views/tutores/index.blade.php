@@ -45,12 +45,11 @@
             <th>Id</th>
             <th>Username</th>
             <th>Nombre</th>
-            <th>Apellidos</th>
-            <th>Dirección</th>
+            <th>Email</th>
             <th>DNI</th>
             <th>Teléfono</th>
             <th>Prentesco</th>
-            <th>Cuenta Corriente</th>
+            <th>Usuario</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -60,13 +59,12 @@
         <tr>
             <td class="align-middle">{{ $tutor->id }}</td>
             <td class="align-middle">{{ $tutor->username }}</td>
-            <td class="align-middle">{{ $tutor->nombre }}</td>
-            <td class="align-middle">{{ $tutor->apellidos }}</td>
-            <td class="align-middle">{{ $tutor->direccion }}</td>
+            <td class="align-middle">{{ $tutor->nombre . " " . $tutor->apellidos}}</td>
+            <td class="align-middle">{{ $tutor->email }}</td>
             <td class="align-middle">{{ $tutor->dni }}</td>
             <td class="align-middle">{{ $tutor->telefono }}</td>
             <td class="align-middle">{{ $tutor->parentesco }}</td>
-            <td class="align-middle">{{ $tutor->cuenta_corriente }}</td>
+            <td class="align-middle">Listado Usuarios</td>
             <td class="align-middle">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <a href="{{ route('tutores.show', $tutor->id) }}" type="button" class="btn btn-secondary">Detail</a>

@@ -38,7 +38,7 @@ class TutorController extends Controller
 
     public function store(Request $request)
     {
-         try {
+        try {
         $errores = [];
 
         // Validación de datos con Validator
@@ -46,6 +46,7 @@ class TutorController extends Controller
             'username' => 'required|string|max:255|unique:tutores',
             'nombre' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
+            'email' => 'required|string|max:255|unique:tutores',
             'direccion' => 'required|string|max:255',
             'password' => 'required|string|min:8',
             'dni' => 'required|string|max:255|unique:profesionales',
@@ -60,7 +61,7 @@ class TutorController extends Controller
         }
 
         // Procesar los valores booleanos
-        $data = $request->only(['username', 'nombre', 'apellidos', 'dni', 'direccion', 'telefono', 'parentesco', 'cuenta_corriente']);
+        $data = $request->only(['username', 'nombre', 'apellidos', 'email', 'dni', 'direccion', 'telefono', 'parentesco', 'cuenta_corriente']);
 
         // Si hay errores, redirigir con todos ellos
         if (!empty($errores)) {
@@ -90,9 +91,38 @@ class TutorController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $tutor = Tutor::findOrFail($id);
-        $tutor->update($request->all());
+        $errores = [];
+        try{
+            $tutor = Tutor::findOrFail($id);
+
+        // Validación de datos con Validator
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string|max:255|unique:tutores,username,' . $tutor->id,
+            'nombre' => 'required|string|max:255',
+            'apellidos' => 'required|string|max:255',
+            'email' => 'required|string|max:255|unique:tutores,email,' . $tutor->id,
+            'direccion' => 'required|string|max:255',
+            'telefono' => 'required|string|max:255',
+            'dni' => 'required|string|max:255|unique:tutores,dni,' . $tutor->id,
+            'parentesco' => 'required|string|max:255',
+            'cuenta_corriente' => 'required|string|max:255',
+        ]);
+        // Si hay errores en la validación, los agregamos
+        if ($validator->fails()) {
+            $errores = $validator->errors()->toArray();
+        }
+
+        $data = $request->only(['username', 'nombre', 'apellidos', 'email', 'dni', 'direccion', 'telefono', 'parentesco', 'cuenta_corriente']);
+        // Si hay errores, redirigir con todos ellos
+        if (!empty($errores)) {
+            return redirect()->back()->withErrors($errores)->withInput($data);
+        }
+
+        $tutor->update($data);
         return redirect()->route('tutores')->with('success', 'Tutor actualizado correctamente');
+        } catch (\Exception) {
+            return redirect()->back()->withErrors($errores);
+        }
     }
 
     public function destroy(string $id)

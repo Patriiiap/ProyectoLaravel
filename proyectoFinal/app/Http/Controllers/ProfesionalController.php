@@ -49,6 +49,7 @@ class ProfesionalController extends Controller
             'username' => 'required|string|max:255|unique:profesionales',
             'nombre' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
+            'email' => 'required|string|max:255|unique:profesionales',
             'dni' => 'required|string|max:255|unique:profesionales',
             'direccion' => 'required|string|max:255',
             'telefono' => 'required|string|max:255',
@@ -61,7 +62,7 @@ class ProfesionalController extends Controller
         }
 
         // Procesar los valores booleanos
-        $data = $request->only(['username', 'nombre', 'apellidos', 'dni', 'direccion', 'telefono']);
+        $data = $request->only(['username', 'nombre', 'apellidos', 'email', 'dni', 'direccion', 'telefono']);
         $data['esPati'] = $request->has('esPati');
         $data['esPap'] = $request->has('esPap');
 
@@ -99,6 +100,51 @@ class ProfesionalController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $errores = [];
+
+        try{
+
+            $profesional = Profesional::findOrFail($id);
+
+            $validator = Validator::make($request->all(), [
+                'username' => 'required|string|max:255|unique:profesionales,username,' . $id,
+                'nombre' => 'required|string|max:255',
+                'apellidos' => 'required|string|max:255',
+                'email' => 'required|string|max:255|unique:profesionales,email,' . $id,
+                'dni' => 'required|string|max:255|unique:profesionales,dni,' . $id,
+                'direccion' => 'required|string|max:255',
+                'telefono' => 'nullable|string|max:20',
+            ]);
+
+            if ($validator->fails()) {
+                $errores = $validator->errors()->toArray();
+            }
+
+            // Procesar los valores booleanos
+            $data = $request->only(['username', 'nombre', 'apellidos', 'email', 'dni', 'direccion', 'telefono']);
+            $data['esPati'] = $request->has('esPati');
+            $data['esPap'] = $request->has('esPap');
+
+            // Verificar si se seleccionó al menos un tipo de profesional
+            if (!$data['esPati'] && !$data['esPap']) {
+                $errores['tipoProfesional'] = ['Debe seleccionar al menos un tipo de profesional.'];
+            }
+
+            // Si hay errores, redirigir con todos ellos
+            if (!empty($errores)) {
+                return redirect()->back()->withErrors($errores)->withInput();
+            }
+            
+            // Actualizar el profesional
+            $profesional->update($data);
+            return redirect()->route('profesionales')->with('success', 'Profesional actualizado correctamente');
+
+        } catch (Exception $e) {
+            $errores['general'] = ['Error al actualizar el profesional: ' . $e->getMessage()];
+        }
+
+
+
         /*$request->validate([
             'username' => 'required|string|max:255',
             'nombre' => 'required|string|max:255',

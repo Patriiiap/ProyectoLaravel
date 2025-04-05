@@ -12,6 +12,12 @@
             readonly>
     </div>
     <div class="col mb-3">
+        <label class="form-label">Email</label>
+        <input type="text" name="email" class="form-control" placeholder="Email" value="{{ $tutor->email }}" readonly>
+    </div>
+</div>
+<div class="row">
+    <div class="col mb-3">
         <label class="form-label">Nombre</label>
         <input type="text" name="nombre" class="form-control" placeholder="Nombre" value="{{ $tutor->nombre }}"
             readonly>

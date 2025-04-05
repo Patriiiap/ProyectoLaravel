@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('nombre');
             $table->string('apellidos');
+            $table->string('email')->unique();
             $table->string('direccion');
             $table->string('password');
             $table->string('dni')->unique();
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->boolean('esPati')->default(false);
             $table->boolean('esPap')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

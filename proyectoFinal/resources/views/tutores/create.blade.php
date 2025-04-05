@@ -57,12 +57,21 @@
     </div>
     <div class="row mb-3">
         <div class="col">
+            <label for="email">Email</label>
+            <input class="form-control" name="email" placeholder="Email"></input>
+            @if ($errors->has('email'))
+            <span class="text-danger">{{ $errors->first('email') }}</span>
+            @endif
+        </div>
+        <div class="col">
             <label for="telefono">Teléfono</label>
             <input class="form-control" name="telefono" placeholder="Teléfono"></input>
             @if ($errors->has('telefono'))
             <span class="text-danger">{{ $errors->first('telefono') }}</span>
             @endif
         </div>
+    </div>
+    <div class="row mb-3">
         <div class="col">
             <label for="parentesco">Parentesco</label>
             <input class="form-control" name="parentesco" placeholder="Parentesco"></input>
@@ -70,8 +79,6 @@
             <span class="text-danger">{{ $errors->first('parentesco') }}</span>
             @endif
         </div>
-    </div>
-    <div class="row mb-3">
         <div class="col">
             <label for="cuenta_corriente">Cuenta Corriente</label>
             <input class="form-control" name="cuenta_corriente" placeholder="Cuenta Corriente"></input>

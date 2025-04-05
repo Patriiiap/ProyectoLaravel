@@ -57,9 +57,21 @@
     </div>
     <div class="row mb-3">
         <div class="col">
+            <label for="email">Email</label>
+            <input class="form-control" name="email" placeholder="Email" value="{{ old('email') }}"></input>
+            @if ($errors->has('email'))
+            <span class="text-danger">{{ $errors->first('email') }}</span>
+            @endif
+        </div>
+        <div class="col">
             <label for="telefono">Teléfono</label>
             <input class="form-control" name="telefono" placeholder="Teléfono" value="{{ old('telefono') }}"></input>
+            @if ($errors->has('telefono'))
+            <span class="text-danger">{{ $errors->first('telefono') }}</span>
+            @endif
         </div>
+    </div>
+    <div class="row mb-3">
         <div class="col">
             <label>Tipo de Profesional</label>
             <div class="col">

@@ -3,13 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuario;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UsuarioController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = Usuario::orderBy('id')->get();
+         $query = Usuario::query();
+
+        if ($request->has('campo') && $request->has('filtro') && $request->has('valor')) {
+            $campo = $request->input('campo');
+            $filtro = $request->input('filtro');
+            $valor = $request->input('valor');
+
+            if ($filtro === 'like') {
+                $query->where($campo, 'LIKE', "%$valor%");
+            } elseif ($filtro === 'start') {
+                $query->where($campo, 'LIKE', "$valor%");
+            } elseif ($filtro === 'end') {
+                $query->where($campo, 'LIKE', "%$valor");
+            }
+        }
+
+        $usuarios = $query->get();
+        
         return view('usuarios.index', ['usuarios' => $usuarios]);
     }
 
@@ -20,7 +39,9 @@ class UsuarioController extends Controller
 
     public function store(Request $request)
     {
-        /*$request->validate([
+    try{
+        $errores = [];
+        $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
             'dni' => 'nullable|string|max:255|unique:usuarios',
@@ -29,7 +50,11 @@ class UsuarioController extends Controller
             'grado_discapacidad' => 'required|integer',
             'descripcion' => 'required|string',
             'id_tutor' => 'required|integer'
-        ]);*/
+        ]);
+
+        if ($validator->fails()) {
+            $errores = $validator->errors()->toArray();
+        }
 
         $data = $request->only([
             'nombre',
@@ -45,8 +70,17 @@ class UsuarioController extends Controller
         $data['esMenor'] = $request->has('esMenor') ? true : false; // Si está marcado, true; si no, false
         $data['tutoria_propia'] = $request->has('tutoria_propia') ? true : false;
 
+        if($data['esMenor'] && $data['tutoria_propia']) {
+            $errores['tutoria_propia'] = 'No se puede asignar tutoría propia a un menor';
+        }
+
         Usuario::create($data);
         return redirect()->route('usuarios')->with('success', 'Usuario añadido correctamente');
+    }
+    catch(Exception $e){
+        return redirect()->back()->withErrors($errores)->withInput();
+    }
+        
     }
 
     public function show(string $id)

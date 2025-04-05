@@ -3,15 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profesional;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class ProfesionalController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $profesionales = Profesional::orderBy('id')->get();
-        return view('profesionales.index', ['profesionales' => $profesionales]);
+        $query = Profesional::query();
+
+        if ($request->has('campo') && $request->has('filtro') && $request->has('valor')) {
+            $campo = $request->input('campo');
+            $filtro = $request->input('filtro');
+            $valor = $request->input('valor');
+
+            if ($filtro === 'like') {
+                $query->where($campo, 'LIKE', "%$valor%");
+            } elseif ($filtro === 'start') {
+                $query->where($campo, 'LIKE', "$valor%");
+            } elseif ($filtro === 'end') {
+                $query->where($campo, 'LIKE', "%$valor");
+            }
+        }
+
+        $profesionales = $query->get();
+
+        return view('profesionales.index', compact('profesionales'));
     }
 
     public function create()
@@ -21,25 +41,48 @@ class ProfesionalController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        try {
+        $errores = [];
+
+        // Validación de datos con Validator
+        $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255|unique:profesionales',
             'nombre' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
             'dni' => 'required|string|max:255|unique:profesionales',
             'direccion' => 'required|string|max:255',
             'telefono' => 'required|string|max:255',
-            'password' => 'required|string|min:8', // Asegúrate de que la contraseña esté presente y tenga una longitud mínima
+            'password' => 'required|string|min:8',
         ]);
 
-        // Procesar los valores booleanos (esPati y esPap)
-        $data = $request->only(['username', 'nombre', 'apellidos', 'dni', 'direccion', 'telefono', 'password']);
+        // Si hay errores en la validación, los agregamos
+        if ($validator->fails()) {
+            $errores = $validator->errors()->toArray();
+        }
 
-        // Asignar valores booleanos a 'esPati' y 'esPap' (false si no están marcados)
-        $data['esPati'] = $request->has('esPati') ? true : false; // Si está marcado, true; si no, false
-        $data['esPap'] = $request->has('esPap') ? true : false;   // Lo mismo para 'esPap'
+        // Procesar los valores booleanos
+        $data = $request->only(['username', 'nombre', 'apellidos', 'dni', 'direccion', 'telefono']);
+        $data['esPati'] = $request->has('esPati');
+        $data['esPap'] = $request->has('esPap');
 
+        // Verificar si se seleccionó al menos un tipo de profesional
+        if (!$data['esPati'] && !$data['esPap']) {
+            $errores['tipoProfesional'] = ['Debe seleccionar al menos un tipo de profesional.'];
+        }
+
+        // Si hay errores, redirigir con todos ellos
+        if (!empty($errores)) {
+            return redirect()->back()->withErrors($errores)->withInput();
+        }
+
+        // Crear el profesional
         Profesional::create($data);
-        return redirect()->route('profesionales')->with('success', 'Profesional añadido correctamente');
+
+        return redirect()->route('profesionales')->with('success', 'Profesional añadido correctamente.');
+
+        } catch (\Exception) {
+            return redirect()->back()->withErrors($errores)->withInput($data);
+        }
     }
 
     public function show(string $id)

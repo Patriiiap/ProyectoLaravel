@@ -13,6 +13,33 @@
     {{ Session::get('success') }}
 </div>
 @endif
+
+
+<form method="GET" action="{{ route('profesionales') }}" class="mb-3">
+    <div class="input-group">
+        <!-- Selector para el campo -->
+        <select name="campo" class="form-control" required>
+            <option value="nombre" {{ request()->input('campo') == 'nombre' ? 'selected' : '' }}>Nombre</option>
+            <option value="apellidos" {{ request()->input('campo') == 'apellidos' ? 'selected' : '' }}>Apellidos
+            </option>
+            <option value="dni" {{ request()->input('campo') == 'dni' ? 'selected' : '' }}>DNI</option>
+        </select>
+
+        <!-- Selector para el tipo de filtro -->
+        <select name="filtro" class="form-control" required>
+            <option value="like" {{ request()->input('filtro') == 'like' ? 'selected' : '' }}>Contiene</option>
+            <option value="start" {{ request()->input('filtro') == 'start' ? 'selected' : '' }}>Empieza con</option>
+            <option value="end" {{ request()->input('filtro') == 'end' ? 'selected' : '' }}>Termina con</option>
+        </select>
+
+        <!-- Campo de búsqueda -->
+        <input type="text" name="valor" class="form-control" placeholder="Buscar"
+            value="{{ request()->input('valor') }}">
+
+        <button class="btn btn-primary" type="submit">Buscar</button>
+    </div>
+</form>
+
 <table class="table table-hover">
     <thead class="table-primary">
         <tr>

@@ -49,7 +49,7 @@
             <th>DNI</th>
             <th>Teléfono</th>
             <th>Prentesco</th>
-            <th>Usuario</th>
+            <th>Usuarios</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -64,7 +64,14 @@
             <td class="align-middle">{{ $tutor->dni }}</td>
             <td class="align-middle">{{ $tutor->telefono }}</td>
             <td class="align-middle">{{ $tutor->parentesco }}</td>
-            <td class="align-middle">Listado Usuarios</td>
+            <td class="align-middle">
+                <ul>
+                    @foreach($tutor->usuarios as $usuario)
+                    <li><a href="{{ route('usuarios.show', $usuario->id) }}">{{ $usuario->nombre . " " .
+                            $usuario->apellidos}}</a></li>
+                    @endforeach
+                </ul>
+            </td>
             <td class="align-middle">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <a href="{{ route('tutores.show', $tutor->id) }}" type="button" class="btn btn-secondary">Detail</a>

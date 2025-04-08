@@ -11,7 +11,7 @@ class UsuarioController extends Controller
 {
     public function index(Request $request)
     {
-         $query = Usuario::query();
+        $query = Usuario::with('tutor');
 
         if ($request->has('campo') && $request->has('filtro') && $request->has('valor')) {
             $campo = $request->input('campo');
@@ -28,7 +28,7 @@ class UsuarioController extends Controller
         }
 
         $usuarios = $query->get();
-        
+
         return view('usuarios.index', ['usuarios' => $usuarios]);
     }
 

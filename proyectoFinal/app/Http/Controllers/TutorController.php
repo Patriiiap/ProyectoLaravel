@@ -10,7 +10,7 @@ class TutorController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Tutor::query();
+        $query = Tutor::with('usuarios');
 
         if ($request->has('campo') && $request->has('filtro') && $request->has('valor')) {
             $campo = $request->input('campo');

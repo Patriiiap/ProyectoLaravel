@@ -23,4 +23,9 @@ class Usuario extends Model
         'tutoria_propia',
         'id_tutor'
     ];
+
+    public function tutor()
+    {
+        return $this->belongsTo(Tutor::class, 'id_tutor');
+    }
 }

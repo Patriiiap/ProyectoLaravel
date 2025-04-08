@@ -68,7 +68,8 @@
             <td class="align-middle">{{ $usuario->grado_discapacidad . '%'}}</td>
             <td class="align-middle">{{ $usuario->descripcion }}</td>
             <td class="align-middle">{{ $usuario->esMenor ? 'Sí' : 'No'}}</td>
-            <td class="align-middle">{{ $usuario->id_tutor}}</td>
+            <td class="align-middle"><a href="{{ route('tutores.show', $usuario->tutor->id) }}">{{
+                    $usuario->tutor->nombre . " " . $usuario->tutor->apellidos}}</a></td>
             <td class="align-middle">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <a href="{{ route('usuarios.show', $usuario->id) }}" type="button"

@@ -35,4 +35,9 @@ class Tutor extends Model
             'password' => 'hashed'
         ];
     }
+
+    public function usuarios()
+    {
+        return $this->hasMany(Usuario::class, 'id_tutor');
+    }
 }

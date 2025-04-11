@@ -48,7 +48,6 @@
             <th>Email</th>
             <th>DNI</th>
             <th>Teléfono</th>
-            <th>Prentesco</th>
             <th>Usuarios</th>
             <th>Action</th>
         </tr>
@@ -63,7 +62,6 @@
             <td class="align-middle">{{ $tutor->email }}</td>
             <td class="align-middle">{{ $tutor->dni }}</td>
             <td class="align-middle">{{ $tutor->telefono }}</td>
-            <td class="align-middle">{{ $tutor->parentesco }}</td>
             <td class="align-middle">
                 <ul>
                     @foreach($tutor->usuarios as $usuario)

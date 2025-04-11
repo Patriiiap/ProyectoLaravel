@@ -46,12 +46,11 @@ class TutorController extends Controller
             'username' => 'required|string|max:255|unique:tutores',
             'nombre' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
-            'email' => 'required|string|max:255|unique:tutores',
+            'email' => 'required|email|max:255|unique:tutores',
             'direccion' => 'required|string|max:255',
             'password' => 'required|string|min:8',
             'dni' => 'required|string|max:255|unique:profesionales',
             'telefono' => 'required|string|max:255',
-            'parentesco' => 'required|string|max:255',
             'cuenta_corriente' => 'required|string|max:255',
         ]);
 
@@ -79,7 +78,7 @@ class TutorController extends Controller
 
     public function show(string $id)
     {
-        $tutor = Tutor::findOrFail($id);
+        $tutor = Tutor::with('usuarios')->findOrFail($id);
         return view('tutores.show', compact('tutor'));
     }
 
@@ -100,11 +99,10 @@ class TutorController extends Controller
             'username' => 'required|string|max:255|unique:tutores,username,' . $tutor->id,
             'nombre' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
-            'email' => 'required|string|max:255|unique:tutores,email,' . $tutor->id,
+            'email' => 'required|email|max:255|unique:tutores,email,' . $tutor->id,
             'direccion' => 'required|string|max:255',
             'telefono' => 'required|string|max:255',
             'dni' => 'required|string|max:255|unique:tutores,dni,' . $tutor->id,
-            'parentesco' => 'required|string|max:255',
             'cuenta_corriente' => 'required|string|max:255',
         ]);
         // Si hay errores en la validación, los agregamos

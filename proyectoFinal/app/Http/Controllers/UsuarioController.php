@@ -49,7 +49,8 @@ class UsuarioController extends Controller
             'fecha_nacimiento' => 'required|date',
             'grado_discapacidad' => 'required|integer',
             'descripcion' => 'required|string',
-            'id_tutor' => 'required|integer'
+            'id_tutor' => 'required|integer',
+            'parentesco' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -64,7 +65,8 @@ class UsuarioController extends Controller
             'fecha_nacimiento',
             'grado_discapacidad',
             'descripcion',
-            'id_tutor'
+            'id_tutor',
+            'parentesco'
         ]);
 
         $data['esMenor'] = $request->has('esMenor') ? true : false; // Si está marcado, true; si no, false
@@ -85,7 +87,7 @@ class UsuarioController extends Controller
 
     public function show(string $id)
     {
-        $usuario = Usuario::findOrFail($id);
+        $usuario = Usuario::with('tutor')->findOrFail($id);
         return view('usuarios.show', compact('usuario'));
     }
 
@@ -97,22 +99,70 @@ class UsuarioController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $usuario = Usuario::findOrFail($id);
+        $errores = [];
 
-        $usuario->update([
-            'nombre' => $request->nombre,
-            'apellidos' => $request->apellidos,
-            'dni' => $request->dni,
-            'direccion' => $request->direccion,
-            'fecha_nacimiento' => $request->fecha_nacimiento,
-            'grado_discapacidad' => $request->grado_discapadidad,
-            'descripcion' => $request->descripcion,
-            'esMenor' => $request->has('esMenor'), // Convierte checkbox en booleano
-            'tutoria_propia' => $request->has('tutoria_propia'),
-            'id_tutor' => $request->id_tutor
-        ]);
+        try{
 
-        return redirect()->route('usuarios')->with('success', 'Usuario actualizado correctamente');
+            $usuario = Usuario::findOrFail($id);
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required|string|max:255',
+                'apellidos' => 'required|string|max:255',
+                'dni' => 'nullable|string|max:255|unique:usuarios,dni,' . $usuario->id,
+                'direccion' => 'required|string|max:255',
+                'fecha_nacimiento' => 'required|date',
+                'grado_discapacidad' => 'required|integer',
+                'descripcion' => 'required|string',
+                'id_tutor' => 'required|integer',
+                'parentesco' => 'required|string|max:255',
+            ]);
+            if ($validator->fails()) {
+                $errores = $validator->errors()->toArray();
+            }
+            $data = $request->only([
+                'nombre',
+                'apellidos',
+                'dni',
+                'direccion',
+                'fecha_nacimiento',
+                'grado_discapacidad',
+                'descripcion',
+                'id_tutor',
+                'parentesco'
+            ]);
+            $data['esMenor'] = $request->has('esMenor') ? true : false; // Si está marcado, true; si no, false
+            $data['tutoria_propia'] = $request->has('tutoria_propia') ? true : false;
+            if($data['esMenor'] && $data['tutoria_propia']) {
+                $errores['tutoria_propia'] = 'No se puede asignar tutoría propia a un menor';
+            }
+            // Si hay errores, redirigir con todos ellos
+            if (!empty($errores)) {
+                return redirect()->back()->withErrors($errores)->withInput();
+            }
+            // Actualizar el usuario
+            $usuario->update($data);
+            return redirect()->route('usuarios')->with('success', 'Usuario actualizado correctamente');
+
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors($errores)->withInput();
+        }
+
+        // $usuario = Usuario::findOrFail($id);
+
+        // $usuario->update([
+        //     'nombre' => $request->nombre,
+        //     'apellidos' => $request->apellidos,
+        //     'dni' => $request->dni,
+        //     'direccion' => $request->direccion,
+        //     'fecha_nacimiento' => $request->fecha_nacimiento,
+        //     'grado_discapacidad' => $request->grado_discapadidad,
+        //     'descripcion' => $request->descripcion,
+        //     'esMenor' => $request->has('esMenor'), // Convierte checkbox en booleano
+        //     'tutoria_propia' => $request->has('tutoria_propia'),
+        //     'id_tutor' => $request->id_tutor,
+        //     'parentesco' => $request->parentesco,
+        // ]);
+
+        // return redirect()->route('usuarios')->with('success', 'Usuario actualizado correctamente');
     }
 
     public function destroy(string $id)

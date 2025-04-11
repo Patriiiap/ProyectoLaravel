@@ -73,23 +73,19 @@
     </div>
     <div class="row mb-3">
         <div class="col">
-            <label for="parentesco">Parentesco</label>
-            <input class="form-control" name="parentesco" placeholder="Parentesco"></input>
-            @if ($errors->has('parentesco'))
-            <span class="text-danger">{{ $errors->first('parentesco') }}</span>
-            @endif
-        </div>
-        <div class="col">
             <label for="cuenta_corriente">Cuenta Corriente</label>
             <input class="form-control" name="cuenta_corriente" placeholder="Cuenta Corriente"></input>
             @if ($errors->has('cuenta_corriente'))
             <span class="text-danger">{{ $errors->first('cuenta_corriente') }}</span>
             @endif
         </div>
+        <div class="col">
+
+        </div>
     </div>
 
-    <div class="row">
-        <div class="d-grid">
+    <div class="row mb-3">
+        <div class="col">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </div>

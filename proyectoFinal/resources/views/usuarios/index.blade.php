@@ -51,6 +51,7 @@
             <th>Grado de Discapacidad</th>
             <th>Descripción</th>
             <th>esMenor</th>
+            <th>Parentesco</th>
             <th>Tutor</th>
             <th>Action</th>
         </tr>
@@ -68,6 +69,7 @@
             <td class="align-middle">{{ $usuario->grado_discapacidad . '%'}}</td>
             <td class="align-middle">{{ $usuario->descripcion }}</td>
             <td class="align-middle">{{ $usuario->esMenor ? 'Sí' : 'No'}}</td>
+            <td class="align-middle">{{ $usuario->parentesco }}</td>
             <td class="align-middle"><a href="{{ route('tutores.show', $usuario->tutor->id) }}">{{
                     $usuario->tutor->nombre . " " . $usuario->tutor->apellidos}}</a></td>
             <td class="align-middle">

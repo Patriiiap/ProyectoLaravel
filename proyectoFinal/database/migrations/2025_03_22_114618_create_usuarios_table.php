@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('tutoria_propia');
             $table->unsignedBigInteger('id_tutor')->nullable();
             $table->foreign('id_tutor')->references('id')->on('tutores')->onDelete('set null');
+            $table->string('parentesco');
             $table->timestamps();
             $table->softDeletes();
         });

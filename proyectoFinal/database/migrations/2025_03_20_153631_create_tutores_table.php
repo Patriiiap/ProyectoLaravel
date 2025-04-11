@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('password');
             $table->string('dni')->unique();
             $table->string('telefono');
-            $table->string('parentesco');
             $table->string('cuenta_corriente');
             $table->timestamps();
             $table->softDeletes();

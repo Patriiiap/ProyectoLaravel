@@ -3,60 +3,81 @@
 @section('title', 'Ver Usuario')
 
 @section('contents')
-<h1 class="mb-0">Detalles del Usuario</h1>
-<hr />
-<div class="row">
-    <div class="col mb-3">
-        <label class="form-label">Nombre</label>
-        <input type="text" name="nombre" class="form-control" placeholder="Nombre" value="{{ $usuario->nombre }}"
-            readonly>
-    </div>
-    <div class="col mb-3">
-        <label class="form-label">Apellidos</label>
-        <input type="text" name="apellidos" class="form-control" placeholder="Apellidos"
-            value="{{ $usuario->apellidos }}" readonly>
-    </div>
-</div>
-<div class="row">
-    <div class="col mb-3">
-        <label class="form-label">Dirección</label>
-        <input type="text" name="direccion" class="form-control" placeholder="Dirección"
-            value="{{ $usuario->direccion }}" readonly>
-    </div>
-    <div class="col mb-3">
-        <label class="form-label">DNI</label>
-        <input type="text" name="dni" class="form-control" placeholder="DNI" value="{{ $usuario->dni }}" readonly>
-    </div>
-</div>
-<div class="row">
-    <div class="col mb-3">
-        <label class="form-label">Fecha de Nacimiento</label>
-        <input type="date" name="fecha_nacimiento" class="form-control" placeholder="Fecha de Nacimiento"
-            value="{{ $usuario->fecha_nacimiento }}" readonly>
-    </div>
-    <div class="col mb-3">
-        <label class="form-label">Grado de Discapacidad</label>
-        <input type="integer" name="grado_discapacidad" class="form-control" placeholder="Grado de discapacidad"
-            value="{{ $usuario->grado_discapacidad}}%" readonly>
-    </div>
-</div>
-<div class="row">
-    <div class="col mb-3">
-        <label class="form-label">Descripción</label>
-        <input type="text" name="descripcion" class="form-control" placeholder="Descripción"
-            value="{{ $usuario->descripcion }}" readonly>
-    </div>
-</div>
-<div class="row">
-    <div class="col mb-3">
-        <label class="form-label">Created At</label>
-        <input type="text" name="created_at" class="form-control" placeholder="Created At"
-            value="{{ $usuario->created_at }}" readonly>
-    </div>
-    <div class="col mb-3">
-        <label class="form-label">Updated At</label>
-        <input type="text" name="updated_at" class="form-control" placeholder="Updated At"
-            value="{{ $usuario->updated_at }}" readonly>
+<h1 class="mb-4">Detalles del Usuario</h1>
+
+<div class="card shadow rounded">
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>Nombre</strong>
+                <p class="mb-2">{{ $usuario->nombre }}</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Apellidos</strong>
+                <p class="mb-2">{{ $usuario->apellidos }}</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>Dirección</strong>
+                <p class="mb-2">{{ $usuario->direccion }}</p>
+            </div>
+            <div class="col-md-6">
+                <strong>DNI</strong>
+                <p class="mb-2">{{ $usuario->dni }}</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>Fecha de Nacimiento</strong>
+                <p class="mb-2">{{ $usuario->fecha_nacimiento }}</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Grado de Discapacidad</strong>
+                <p class="mb-2">{{ $usuario->grado_discapacidad }}%</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>Tutor</strong>
+                <p class="mb-2"><strong>Nombre: </strong>{{ $usuario->tutor->nombre . " " . $usuario->tutor->apellidos}}
+                </p>
+                <p class="mb-2"><strong>Teléfono: </strong>{{ $usuario->tutor->telefono}}
+                </p>
+                <p class="mb-2"><strong>Email: </strong>{{ $usuario->tutor->email}}
+                </p>
+                <div class="mb-3">
+                    <a href="{{ route('tutores.show', $usuario->tutor->id) }}" class="btn btn-primary">
+                        Ver Ficha del Tutor
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <strong>Descripción</strong>
+                <p class="mb-2">{{ $usuario->descripcion }}</p>
+            </div>
+        </div>
+
+
+        {{-- Línea separadora estilizada --}}
+        <div class="my-4">
+            <hr style="border-top: 1px solid #ccc;">
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>Fecha de Creación</strong>
+                <p class="mb-2 text-muted">{{ $usuario->created_at }}</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Última Actualización</strong>
+                <p class="mb-0 text-muted">{{ $usuario->updated_at }}</p>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

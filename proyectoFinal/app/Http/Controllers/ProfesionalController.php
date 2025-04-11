@@ -49,7 +49,7 @@ class ProfesionalController extends Controller
             'username' => 'required|string|max:255|unique:profesionales',
             'nombre' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
-            'email' => 'required|string|max:255|unique:profesionales',
+            'email' => 'required|email|max:255|unique:profesionales',
             'dni' => 'required|string|max:255|unique:profesionales',
             'direccion' => 'required|string|max:255',
             'telefono' => 'required|string|max:255',
@@ -110,7 +110,7 @@ class ProfesionalController extends Controller
                 'username' => 'required|string|max:255|unique:profesionales,username,' . $id,
                 'nombre' => 'required|string|max:255',
                 'apellidos' => 'required|string|max:255',
-                'email' => 'required|string|max:255|unique:profesionales,email,' . $id,
+                'email' => 'required|email|max:255|unique:profesionales,email,' . $id,
                 'dni' => 'required|string|max:255|unique:profesionales,dni,' . $id,
                 'direccion' => 'required|string|max:255',
                 'telefono' => 'nullable|string|max:20',
@@ -142,32 +142,6 @@ class ProfesionalController extends Controller
         } catch (Exception $e) {
             $errores['general'] = ['Error al actualizar el profesional: ' . $e->getMessage()];
         }
-
-
-
-        /*$request->validate([
-            'username' => 'required|string|max:255',
-            'nombre' => 'required|string|max:255',
-            'apellidos' => 'required|string|max:255',
-            'dni' => 'required|string|max:255|unique:profesionales,dni,' . $id,
-            'direccion' => 'required|string|max:255',
-            'telefono' => 'nullable|string|max:20',
-        ]);*/
-
-        $profesional = Profesional::findOrFail($id);
-
-        $profesional->update([
-            'username' => $request->username,
-            'nombre' => $request->nombre,
-            'apellidos' => $request->apellidos,
-            'dni' => $request->dni,
-            'direccion' => $request->direccion,
-            'telefono' => $request->telefono,
-            'esPati' => $request->has('esPati'), // Convierte checkbox en booleano
-            'esPap' => $request->has('esPap'),
-        ]);
-
-        return redirect()->route('profesionales')->with('success', 'Profesional actualizado correctamente');
     }
 
     public function destroy(string $id)

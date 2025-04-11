@@ -21,7 +21,8 @@ class Usuario extends Model
         'descripcion',
         'esMenor',
         'tutoria_propia',
-        'id_tutor'
+        'id_tutor',
+        'parentesco',
     ];
 
     public function tutor()

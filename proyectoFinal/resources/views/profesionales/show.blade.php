@@ -3,70 +3,73 @@
 @section('title', 'Ver Profesional')
 
 @section('contents')
-<h1 class="mb-0">Detalles del Profesional</h1>
-<hr />
-<div class="row">
-    <div class="col mb-3">
-        <label class="form-label">Username</label>
-        <input type="text" name="username" class="form-control" placeholder="Username"
-            value="{{ $profesional->username }}" readonly>
-    </div>
-    <div class="col mb-3">
-        <label class="form-label">Email</label>
-        <input type="text" name="email" class="form-control" placeholder="Email" value="{{ $profesional->email }}"
-            readonly>
-    </div>
-</div>
-<div class="row">
-    <div class="col mb-3">
-        <label class="form-label">Nombre</label>
-        <input type="text" name="nombre" class="form-control" placeholder="Nombre" value="{{ $profesional->nombre }}"
-            readonly>
-    </div>
-    <div class="col mb-3">
-        <label class="form-label">Apellidos</label>
-        <input type="text" name="apellidos" class="form-control" placeholder="Apellidos"
-            value="{{ $profesional->apellidos }}" readonly>
-    </div>
-</div>
-<div class="row">
-    <div class="col mb-3">
-        <label class="form-label">DNI</label>
-        <input type="text" name="dni" class="form-control" placeholder="DNI" value="{{ $profesional->dni }}" readonly>
-    </div>
-    <div class="col mb-3">
-        <label class="form-label">Dirección</label>
-        <input type="text" name="direccion" class="form-control" placeholder="Dirección"
-            value="{{ $profesional->direccion }}" readonly>
-    </div>
-    <div class="col mb-3">
-        <label class="form-label">Teléfono</label>
-        <input type="text" name="telefono" class="form-control" placeholder="Teléfono"
-            value="{{ $profesional->telefono }}" readonly>
-    </div>
-</div>
-<div class="row">
-    <div class="col mb-3">
-        <label class="form-label">Es PATI</label>
-        <input type="text" name="esPati" class="form-control" placeholder="Es PATI"
-            value="{{ $profesional->esPati ? 'Sí' : 'No'}}" readonly>
-    </div>
-    <div class="col mb-3">
-        <label class="form-label">Es PAP</label>
-        <input type="text" name="esPap" class="form-control" placeholder="Es PAP"
-            value="{{ $profesional->esPap ? 'Sí' : 'No'}}" readonly>
-    </div>
-</div>
-<div class="row">
-    <div class="col mb-3">
-        <label class="form-label">Created At</label>
-        <input type="text" name="created_at" class="form-control" placeholder="Created At"
-            value="{{ $profesional->created_at }}" readonly>
-    </div>
-    <div class="col mb-3">
-        <label class="form-label">Updated At</label>
-        <input type="text" name="updated_at" class="form-control" placeholder="Updated At"
-            value="{{ $profesional->updated_at }}" readonly>
+<h1 class="mb-4">Detalles del Profesional</h1>
+
+<div class="card shadow rounded">
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>Nombre</strong>
+                <p class="mb-2">{{ $profesional->nombre }}</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Apellidos</strong>
+                <p class="mb-2">{{ $profesional->apellidos }}</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            {{-- <div class="col-md-6">
+                <strong>Username</strong>
+                <p class="mb-2">{{ $profesional->username }}</p>
+            </div> --}}
+            <div class="col-md-6">
+                <strong>Email</strong>
+                <p class="mb-2">{{ $profesional->email }}</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Teléfono</strong>
+                <p class="mb-2">{{ $profesional->telefono }}</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>DNI</strong>
+                <p class="mb-2">{{ $profesional->dni }}</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Dirección</strong>
+                <p class="mb-2">{{ $profesional->direccion }}</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>Es PATI</strong>
+                <p class="mb-2">{{ $profesional->esPati ? 'Sí' : 'No' }}</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Es PAP</strong>
+                <p class="mb-2">{{ $profesional->esPap ? 'Sí' : 'No' }}</p>
+            </div>
+        </div>
+
+        {{-- Línea separadora estilizada --}}
+        <div class="my-4">
+            <hr style="border-top: 1px solid #ccc;">
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <strong>Fecha de Creación</strong>
+                <p class="mb-2 text-muted">{{ $profesional->created_at }}</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Última Actualización</strong>
+                <p class="mb-0 text-muted">{{ $profesional->updated_at }}</p>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

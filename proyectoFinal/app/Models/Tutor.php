@@ -20,7 +20,6 @@ class Tutor extends Model
         'password',
         'dni',
         'telefono',
-        'parentesco',
         'cuenta_corriente',
     ];
 

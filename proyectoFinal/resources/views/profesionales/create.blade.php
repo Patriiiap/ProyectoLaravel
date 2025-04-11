@@ -90,8 +90,8 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="d-grid">
+    <div class="row mb-3">
+        <div class="col">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </div>

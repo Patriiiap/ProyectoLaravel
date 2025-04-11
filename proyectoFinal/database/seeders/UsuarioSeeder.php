@@ -25,6 +25,7 @@ class UsuarioSeeder extends Seeder
                 'esMenor' => false,
                 'tutoria_propia' => false,
                 'id_tutor' => 1, // Relacionado con el tutor que tiene id 1
+                'parentesco' => 'Hijo',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -39,6 +40,7 @@ class UsuarioSeeder extends Seeder
                 'esMenor' => false,
                 'tutoria_propia' => true,
                 'id_tutor' => 2, // Relacionado con el tutor que tiene id 2
+                'parentesco' => 'Hermana',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -53,6 +55,7 @@ class UsuarioSeeder extends Seeder
                 'esMenor' => true,
                 'tutoria_propia' => false,
                 'id_tutor' => 3, // Relacionado con el tutor que tiene id 3
+                'parentesco' => 'Madre',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -67,6 +70,7 @@ class UsuarioSeeder extends Seeder
                 'esMenor' => false,
                 'tutoria_propia' => true,
                 'id_tutor' => 4, // Relacionado con el tutor que tiene id 4
+                'parentesco' => 'Padre',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -81,6 +85,7 @@ class UsuarioSeeder extends Seeder
                 'esMenor' => true,
                 'tutoria_propia' => false,
                 'id_tutor' => 5, // Relacionado con el tutor que tiene id 5
+                'parentesco' => 'Hermana',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -95,6 +100,7 @@ class UsuarioSeeder extends Seeder
                 'esMenor' => false,
                 'tutoria_propia' => true,
                 'id_tutor' => 6, // Relacionado con el tutor que tiene id 6
+                'parentesco' => 'Hermano',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -109,6 +115,7 @@ class UsuarioSeeder extends Seeder
                 'esMenor' => true,
                 'tutoria_propia' => false,
                 'id_tutor' => 7, // Relacionado con el tutor que tiene id 7
+                'parentesco' => 'Tía',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -123,6 +130,7 @@ class UsuarioSeeder extends Seeder
                 'esMenor' => false,
                 'tutoria_propia' => true,
                 'id_tutor' => 8, // Relacionado con el tutor que tiene id 8
+                'parentesco' => 'Hijo',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -137,6 +145,7 @@ class UsuarioSeeder extends Seeder
                 'esMenor' => false,
                 'tutoria_propia' => false,
                 'id_tutor' => 9, // Relacionado con el tutor que tiene id 9
+                'parentesco' => 'Hermano',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -151,6 +160,7 @@ class UsuarioSeeder extends Seeder
                 'esMenor' => true,
                 'tutoria_propia' => false,
                 'id_tutor' => 10, // Relacionado con el tutor que tiene id 10
+                'parentesco' => 'Hijo',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]

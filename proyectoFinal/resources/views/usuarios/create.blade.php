@@ -58,6 +58,23 @@
     </div>
     <div class="row mb-3">
         <div class="col">
+            <label for="parentesco">Parentesco</label>
+            <input type="text" name="parentesco" class="form-control" placeholder="Parentesco">
+            @if ($errors->has('parentesco'))
+            <span class="text-danger">{{ $errors->first('parentesco') }}</span>
+            @endif
+        </div>
+        <div class="col">
+            <label for="id_tutor">Id del Tutor</label>
+            <input type="number" name="id_tutor" class="form-control" placeholder="ID del Tutor">
+            @if ($errors->has('id_tutor'))
+            <span class="text-danger">{{ $errors->first('id_tutor') }}</span>
+            @endif
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
             <label>Información Extra</label>
             <div class="col">
                 <input class="form-checkbox-input" type="checkbox" name="esMenor" id="esMenor" value="1">
@@ -69,13 +86,6 @@
             </div>
             @if ($errors->has('tutoria_propia'))
             <span class="text-danger">{{ $errors->first('tutoria_propia') }}</span>
-            @endif
-        </div>
-        <div class="col">
-            <label for="id_tutor">Id del Tutor</label>
-            <input type="number" name="id_tutor" class="form-control" placeholder="ID del Tutor">
-            @if ($errors->has('id_tutor'))
-            <span class="text-danger">{{ $errors->first('id_tutor') }}</span>
             @endif
         </div>
     </div>
@@ -90,8 +100,8 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="d-grid">
+    <div class="row mb-3">
+        <div class="col">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </div>

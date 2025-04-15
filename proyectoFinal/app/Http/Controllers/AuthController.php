@@ -2,12 +2,12 @@
   
 namespace App\Http\Controllers;
   
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
   
 class AuthController extends Controller
 {
@@ -45,25 +45,51 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ])->validate();
-  
-        if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed')
-            ]);
+
+        $credentials = $request->only('email', 'password');
+
+        // Intentar login con 'web' (admin por defecto)
+        if (Auth::guard('web')->attempt($credentials)) {
+            return redirect()->route('dashboard');  // Redirigir al dashboard del admin
         }
+
+        // Intentar login con 'tutor'
+        if (Auth::guard('tutor')->attempt($credentials)) {
+            return redirect()->route('vistastutor.dashboard');  // Redirigir al dashboard del tutor
+        }
+
+        // Intentar login con 'profesional'
+        if (Auth::guard('profesional')->attempt($credentials)) {
+            return redirect()->route('profesional.dashboard');  // Redirigir al dashboard del profesional
+        }
+
+        // Si las credenciales no son correctas
+        return back()->withErrors(['email' => 'Credenciales incorrectas']);
+        
   
-        $request->session()->regenerate();
+        // if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+        //     throw ValidationException::withMessages([
+        //         'email' => trans('auth.failed')
+        //     ]);
+        // }
   
-        return redirect()->route('dashboard');
+        // $request->session()->regenerate();
+  
+        // return redirect()->route('dashboard');
     }
   
     public function logout(Request $request)
     {
-        Auth::guard('web')->logout();
+        // Auth::guard('web')->logout();
   
+        // $request->session()->invalidate();
+  
+        // return redirect('/');
+        Auth::logout();  // Logout para cualquier guard
         $request->session()->invalidate();
-  
-        return redirect('/');
+        $request->session()->regenerateToken();
+        
+        return redirect()->route('login');
     }
  
     public function profile()

@@ -3,9 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Profesional;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class ProfesionalSeeder extends Seeder
 {
@@ -14,7 +13,13 @@ class ProfesionalSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('profesionales')->insert([
+        // Crear el rol 'profesional' si no existe
+        $profesionalRole = Role::firstOrCreate([
+            'name' => 'profesional',
+            'guard_name' => 'profesional',
+        ]);
+
+        $profesionales = [
             [
                 'username' => 'prof1',
                 'nombre' => 'Laura',
@@ -26,8 +31,6 @@ class ProfesionalSeeder extends Seeder
                 'telefono' => '612345678',
                 'esPati' => true,
                 'esPap' => false,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'prof2',
@@ -40,8 +43,6 @@ class ProfesionalSeeder extends Seeder
                 'telefono' => '623456789',
                 'esPati' => false,
                 'esPap' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'prof3',
@@ -54,8 +55,6 @@ class ProfesionalSeeder extends Seeder
                 'telefono' => '634567890',
                 'esPati' => true,
                 'esPap' => false,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'prof4',
@@ -68,8 +67,6 @@ class ProfesionalSeeder extends Seeder
                 'telefono' => '645678901',
                 'esPati' => false,
                 'esPap' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'prof5',
@@ -82,8 +79,6 @@ class ProfesionalSeeder extends Seeder
                 'telefono' => '656789012',
                 'esPati' => true,
                 'esPap' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'prof6',
@@ -96,8 +91,6 @@ class ProfesionalSeeder extends Seeder
                 'telefono' => '667890123',
                 'esPati' => false,
                 'esPap' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'prof7',
@@ -110,8 +103,6 @@ class ProfesionalSeeder extends Seeder
                 'telefono' => '678901234',
                 'esPati' => true,
                 'esPap' => false,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'prof8',
@@ -124,8 +115,6 @@ class ProfesionalSeeder extends Seeder
                 'telefono' => '689012345',
                 'esPati' => false,
                 'esPap' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'prof9',
@@ -138,8 +127,6 @@ class ProfesionalSeeder extends Seeder
                 'telefono' => '690123456',
                 'esPati' => true,
                 'esPap' => false,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'prof10',
@@ -152,9 +139,12 @@ class ProfesionalSeeder extends Seeder
                 'telefono' => '701234567',
                 'esPati' => true,
                 'esPap' => false,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]
-        ]);
+        ];
+
+        foreach ($profesionales as $data) {
+            $profesional = Profesional::create($data);
+            $profesional->assignRole($profesionalRole);
+        }
     }
 }

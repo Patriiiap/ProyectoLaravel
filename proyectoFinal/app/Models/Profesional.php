@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
-class Profesional extends Model
+class Profesional extends Authenticatable
 {
-    use SoftDeletes;
+    use SoftDeletes, HasRoles;
 
     protected $table = "profesionales";
+    protected $guard_name = 'profesional';
 
     protected $fillable = [
         'username',

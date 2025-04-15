@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Tutor;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class TutorSeeder extends Seeder
 {
@@ -13,19 +13,20 @@ class TutorSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('tutores')->insert([
+        // Crear el rol 'tutor' si no existe
+        $tutorRole = Role::firstOrCreate(['name' => 'tutor', 'guard_name' => 'tutor']);
+
+        $tutores = [
             [
                 'username' => 'juanperez',
                 'nombre' => 'Juan',
                 'apellidos' => 'Pérez',
                 'email' => 'juanperez@example.com',
                 'direccion' => 'Calle Falsa 123, Madrid',
-                'password' => bcrypt('password123'), // Usa una contraseña fija o generada
+                'password' => bcrypt('password123'),
                 'dni' => '12345678A',
                 'telefono' => '600123456',
                 'cuenta_corriente' => 'ES1234567890123456789012',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'mariagomez',
@@ -37,8 +38,6 @@ class TutorSeeder extends Seeder
                 'dni' => '87654321B',
                 'telefono' => '600987654',
                 'cuenta_corriente' => 'ES9876543210987654321098',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'pedroluna',
@@ -50,8 +49,6 @@ class TutorSeeder extends Seeder
                 'dni' => '23456789C',
                 'telefono' => '600112233',
                 'cuenta_corriente' => 'ES1234567890123456789087',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'carlogarcia',
@@ -63,8 +60,6 @@ class TutorSeeder extends Seeder
                 'dni' => '34567890D',
                 'telefono' => '600445566',
                 'cuenta_corriente' => 'ES7654321098765432109876',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'lorenadiaz',
@@ -76,8 +71,6 @@ class TutorSeeder extends Seeder
                 'dni' => '45678901E',
                 'telefono' => '600778899',
                 'cuenta_corriente' => 'ES5432109876543210987654',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'albafernandez',
@@ -89,8 +82,6 @@ class TutorSeeder extends Seeder
                 'dni' => '56789012F',
                 'telefono' => '600223344',
                 'cuenta_corriente' => 'ES2345678901234567890123',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'pedroalvarez',
@@ -102,8 +93,6 @@ class TutorSeeder extends Seeder
                 'dni' => '67890123G',
                 'telefono' => '600667788',
                 'cuenta_corriente' => 'ES8765432109876543210981',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'sofiagomez',
@@ -115,8 +104,6 @@ class TutorSeeder extends Seeder
                 'dni' => '78901234H',
                 'telefono' => '600556677',
                 'cuenta_corriente' => 'ES1234567890123456789045',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'antoniohernandez',
@@ -128,8 +115,6 @@ class TutorSeeder extends Seeder
                 'dni' => '89012345I',
                 'telefono' => '600889900',
                 'cuenta_corriente' => 'ES6543210987654321098767',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'username' => 'raquelmartinez',
@@ -141,9 +126,12 @@ class TutorSeeder extends Seeder
                 'dni' => '90123456J',
                 'telefono' => '600445566',
                 'cuenta_corriente' => 'ES9876543210987654321099',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
-        ]);
+        ];
+
+        foreach ($tutores as $data) {
+            $tutor = Tutor::create($data);
+            $tutor->assignRole($tutorRole);
+        }
     }
 }

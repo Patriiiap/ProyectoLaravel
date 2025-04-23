@@ -60,22 +60,11 @@ class AuthController extends Controller
 
         // Intentar login con 'profesional'
         if (Auth::guard('profesional')->attempt($credentials)) {
-            return redirect()->route('profesional.dashboard');  // Redirigir al dashboard del profesional
+            return redirect()->route('vistasprofesional.dashboard');  // Redirigir al dashboard del profesional
         }
 
         // Si las credenciales no son correctas
         return back()->withErrors(['email' => 'Credenciales incorrectas']);
-        
-  
-        // if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
-        //     throw ValidationException::withMessages([
-        //         'email' => trans('auth.failed')
-        //     ]);
-        // }
-  
-        // $request->session()->regenerate();
-  
-        // return redirect()->route('dashboard');
     }
   
     public function logout(Request $request)

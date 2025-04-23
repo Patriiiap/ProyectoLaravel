@@ -1,0 +1,159 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #f9f9fb;
+    padding: 20px;
+}
+
+/* Navbar */
+.navbar {
+    background-color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 40px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.profile-icon {
+    background: #dce0ea;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+/* Títulos */
+h1 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Dashboard - Uso de Grid */
+.dashboard {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* Ajuste flexible */
+}
+
+/* Tarjetas */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.user-card {
+    background: #e7f0fd;
+}
+
+.user-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.user-info {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.sessions-list {
+    font-size: 0.95rem;
+}
+
+.session {
+    margin-bottom: 12px;
+}
+
+.session time {
+    float: right;
+    color: #333;
+}
+
+.alert-box {
+    background: #fff;
+    border-left: 4px solid #f39c12;
+}
+
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 768px) {
+
+    /* En pantallas pequeñas, hacer que las tarjetas se acomoden en una sola columna */
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    /* Ajustar la navbar */
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    /* Hacer el icono de perfil más pequeño */
+    .profile-icon {
+        padding: 8px;
+    }
+
+    /* Ajustar tamaño del título */
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    /* Mejorar el espacio en el subtítulo */
+    .subtitle {
+        margin-bottom: 20px;
+    }
+}
+
+/* Media Queries para pantallas extra pequeñas */
+@media (max-width: 480px) {
+
+    /* Reducir tamaño de la navbar en pantallas más pequeñas */
+    .navbar {
+        padding: 10px 20px;
+    }
+
+    /* Reducir tamaño de texto en la dashboard */
+    .card {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+}

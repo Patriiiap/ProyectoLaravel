@@ -57,11 +57,17 @@ Route::controller(AuthController::class)->group(function () {
         });
     });
 
-    Route::middleware('role:tutor')->group(function () {
+    //Route::middleware('role:tutor')->group(function () {
         Route::get('tutordashboard', function () {
-            return view('vistastutor.dashboard');  // Esta es la vista para el dashboard del tutor
+            return view('vistastutor.dashboard');  
         })->name('vistastutor.dashboard');
-    });
+    //});
+
+    //Route::middleware('role:profesional')->group(function () {
+        Route::get('profesionaldashboard', function () {
+            return view('vistasprofesional.dashboard'); 
+        })->name('vistasprofesional.dashboard');
+    //});
 
     Route::get('/profile', [App\Http\Controllers\AuthController::class, 'profile'])->name('profile');  
 //});

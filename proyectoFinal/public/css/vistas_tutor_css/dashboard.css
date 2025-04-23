@@ -1,0 +1,158 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9fbfc;
+    color: #1f2937;
+}
+
+.header {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e3a8a !important;
+    color: white;
+    padding: 1rem 2rem;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.user-profile img {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.acciones {
+    display: flex;
+    flex-direction: row;
+}
+
+.acciones button {
+    background-color: transparent;
+    color: white;
+    border: transparent;
+    border-radius: 5px;
+    padding: 0.25rem 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 0.5rem;
+    width: 11rem;
+}
+
+.acciones button:hover {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.user-info h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.user-info p {
+    color: #6b7280;
+}
+
+.next-appointment {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.next-appointment h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.next-appointment ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0 0;
+}
+
+.next-appointment li {
+    margin-bottom: 0.5rem;
+}
+
+.status {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.calendar-section {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #1f2937;
+}
+
+.date {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #e5e7eb;
+}
+
+.selected {
+    background-color: #2563eb;
+    color: white;
+}
+
+.empty {
+    visibility: hidden;
+}
+
+/* Media query para móviles */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .user-profile {
+        margin-bottom: 1rem;
+        justify-content: space-between;
+    }
+
+    .acciones {
+        flex-direction: column;
+    }
+
+    .acciones button {
+        margin: 0.25rem 0;
+        text-align: left;
+        padding: 0.5rem 1rem;
+    }
+}

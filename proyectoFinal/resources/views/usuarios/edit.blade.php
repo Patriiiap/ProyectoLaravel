@@ -62,6 +62,29 @@
     </div>
     <div class="row">
         <div class="col">
+            <label for="parentesco">Parentesco</label>
+            <input type="text" name="parentesco" class="form-control" placeholder="Parentesco"
+                value="{{ $usuario->parentesco }}">
+            @if ($errors->has('parentesco'))
+            <span class="text-danger">{{ $errors->first('parentesco') }}</span>
+            @endif
+        </div>
+
+        <div class="col">
+            <label for="id_tutor">Id del Tutor</label>
+            <input type="number" name="id_tutor" class="form-control" placeholder="ID del Tutor"
+                value="{{ $usuario->id_tutor }}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="descripcion">Descripción</label>
+            <input type="text" name="descripcion" class="form-control" placeholder="Descripción"
+                value="{{ $usuario->descripcion }}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
             <label>Información Extra:</label>
             <div class="col">
                 <input class="form-checkbox-input" type="checkbox" name="esMenor" id="esMenor" {{$usuario->esMenor ?
@@ -79,20 +102,7 @@
             <span class="text-danger">{{ $errors->first('tutoria_propia') }}</span>
             @endif
         </div>
-
-        <div class="col">
-            <label for="id_tutor">Id del Tutor</label>
-            <input type="number" name="id_tutor" class="form-control" placeholder="ID del Tutor"
-                value="{{ $usuario->id_tutor }}">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <label for="descripcion">Descripción</label>
-            <input type="text" name="descripcion" class="form-control" placeholder="Descripción"
-                value="{{ $usuario->descripcion }}">
-        </div>
-    </div> <br>
+    </div><br>
     <div class="row">
         <div class="d-grid">
             <button class="btn btn-warning">Update</button>

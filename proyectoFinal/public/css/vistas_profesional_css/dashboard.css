@@ -1,159 +1,158 @@
-* {
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f9fbfc;
+    color: #1f2937;
 }
 
-body {
-    background: #f9f9fb;
-    padding: 20px;
+.header {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #065f46;
+    color: white;
+    padding: 1rem 2rem;
 }
 
-/* Navbar */
-.navbar {
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.user-profile img {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
     background-color: white;
-    padding: 15px 30px;
+}
+
+.acciones {
+    display: flex;
+    flex-direction: row;
+}
+
+.acciones button {
+    background-color: transparent;
+    color: white;
+    border: transparent;
+    border-radius: 5px;
+    padding: 0.25rem 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 0.5rem;
+    width: 11rem;
+}
+
+.acciones button:hover {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.user-info h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.user-info p {
+    color: #6b7280;
+}
+
+.next-appointment {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.next-appointment h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    margin-bottom: 40px;
+    font-size: 1.2rem;
 }
 
-.nav-links {
-    display: flex;
-    gap: 20px;
+.next-appointment ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0 0;
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
+.next-appointment li {
+    margin-bottom: 0.5rem;
 }
 
-.profile-icon {
-    background: #dce0ea;
-    border-radius: 50%;
-    padding: 10px;
+.status {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
 }
 
-/* Títulos */
-h1 {
-    font-size: 2rem;
-    margin-bottom: 5px;
+.calendar-section {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
 }
 
-.subtitle {
-    color: #666;
-    margin-bottom: 30px;
-}
-
-/* Dashboard - Uso de Grid */
-.dashboard {
+.calendar {
     display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    /* Ajuste flexible */
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #1f2937;
 }
 
-/* Tarjetas */
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+.date {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #e5e7eb;
 }
 
-.user-card {
-    background: #e7f0fd;
+.selected {
+    background-color: #2563eb;
+    color: white;
 }
 
-.user-name {
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 8px;
+.empty {
+    visibility: hidden;
 }
 
-.user-info {
-    color: #555;
-    font-size: 0.95rem;
-}
-
-.sessions-list {
-    font-size: 0.95rem;
-}
-
-.session {
-    margin-bottom: 12px;
-}
-
-.session time {
-    float: right;
-    color: #333;
-}
-
-.alert-box {
-    background: #fff;
-    border-left: 4px solid #f39c12;
-}
-
-/* Media Queries para pantallas pequeñas */
+/* Media query para móviles */
 @media (max-width: 768px) {
-
-    /* En pantallas pequeñas, hacer que las tarjetas se acomoden en una sola columna */
-    .dashboard {
-        grid-template-columns: 1fr;
+    .header {
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: space-between;
     }
 
-    /* Ajustar la navbar */
-    .navbar {
+    .user-profile {
+        margin-bottom: 1rem;
+        justify-content: space-between;
+    }
+
+    .acciones {
         flex-direction: column;
-        align-items: flex-start;
-        padding: 15px;
     }
 
-    .nav-links {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
-
-    /* Hacer el icono de perfil más pequeño */
-    .profile-icon {
-        padding: 8px;
-    }
-
-    /* Ajustar tamaño del título */
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    /* Mejorar el espacio en el subtítulo */
-    .subtitle {
-        margin-bottom: 20px;
-    }
-}
-
-/* Media Queries para pantallas extra pequeñas */
-@media (max-width: 480px) {
-
-    /* Reducir tamaño de la navbar en pantallas más pequeñas */
-    .navbar {
-        padding: 10px 20px;
-    }
-
-    /* Reducir tamaño de texto en la dashboard */
-    .card {
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 1.3rem;
-    }
-
-    .subtitle {
-        font-size: 0.9rem;
+    .acciones button {
+        margin: 0.25rem 0;
+        text-align: left;
+        padding: 0.5rem 1rem;
     }
 }

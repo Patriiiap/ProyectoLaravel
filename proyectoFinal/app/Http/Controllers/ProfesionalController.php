@@ -6,6 +6,7 @@ use App\Models\Profesional;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 
 class ProfesionalController extends Controller
@@ -62,7 +63,7 @@ class ProfesionalController extends Controller
         }
 
         // Procesar los valores booleanos
-        $data = $request->only(['username', 'nombre', 'apellidos', 'email', 'dni', 'direccion', 'telefono']);
+        $data = $request->only(['username', 'nombre', 'apellidos', 'email', 'dni', 'direccion', 'telefono', 'password']);
         $data['esPati'] = $request->has('esPati');
         $data['esPap'] = $request->has('esPap');
 
@@ -78,6 +79,13 @@ class ProfesionalController extends Controller
 
         // Crear el profesional
         Profesional::create($data);
+
+        // Asignar el rol de profesional
+        $profesionalRole = Role::firstOrCreate([
+            'name' => 'profesional',
+            'guard_name' => 'profesional',
+        ]);
+        Profesional::where('username', $data['username'])->first()->assignRole($profesionalRole);
 
         return redirect()->route('profesionales')->with('success', 'Profesional añadido correctamente.');
 

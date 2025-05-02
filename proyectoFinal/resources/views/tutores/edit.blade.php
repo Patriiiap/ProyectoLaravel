@@ -42,29 +42,21 @@
             @endif
         </div>
         <div class="col mb-3">
-            <label class="form-label">Teléfono</label>
-            <input class="form-control" name="telefono" placeholder="Teléfono" value="{{ $tutor->telefono }}"></input>
-            @if ($errors->has('telefono'))
-            <span class="text-danger">{{ $errors->first('telefono') }}</span>
-            @endif
-        </div>
-        <div class="col mb-3">
-            <label class="form-label">Parentesco</label>
-            <input class="form-control" name="parentesco" placeholder="Parentesco"
-                value="{{ $tutor->parentesco }}"></input>
-            @if ($errors->has('parentesco'))
-            <span class="text-danger">{{ $errors->first('parentesco') }}</span>
-            @endif
-        </div>
-    </div>
-    <div class="row">
-        <div class="col mb-3">
             <label class="form-label">Email</label>
             <input type="text" name="email" class="form-control" placeholder="Email" value="{{ $tutor->email }}">
             @if ($errors->has('email'))
             <span class="text-danger">{{ $errors->first('email') }}</span>
             @endif
         </div>
+        <div class="col mb-3">
+            <label class="form-label">Teléfono</label>
+            <input class="form-control" name="telefono" placeholder="Teléfono" value="{{ $tutor->telefono }}"></input>
+            @if ($errors->has('telefono'))
+            <span class="text-danger">{{ $errors->first('telefono') }}</span>
+            @endif
+        </div>
+    </div>
+    <div class="row">
         <div class="col mb-3">
             <label class="form-label">Dirección</label>
             <input type="text" name="direccion" class="form-control" placeholder="Dirección"

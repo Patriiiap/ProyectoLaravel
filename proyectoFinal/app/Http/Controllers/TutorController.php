@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tutor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class TutorController extends Controller
 {
@@ -60,7 +61,7 @@ class TutorController extends Controller
         }
 
         // Procesar los valores booleanos
-        $data = $request->only(['username', 'nombre', 'apellidos', 'email', 'dni', 'direccion', 'telefono', 'parentesco', 'cuenta_corriente']);
+        $data = $request->only(['username', 'nombre', 'apellidos', 'email', 'dni', 'direccion', 'telefono', 'parentesco', 'cuenta_corriente', 'password']);
 
         // Si hay errores, redirigir con todos ellos
         if (!empty($errores)) {
@@ -69,6 +70,14 @@ class TutorController extends Controller
 
         // Crear el tutor
         Tutor::create($data);
+
+        //Asignar el rol de tutor
+        $tutorRole = Role::firstOrCreate([
+            'name' => 'tutor',
+            'guard_name' => 'tutor',
+        ]);
+        Tutor::where('email', $data['email'])->first()->assignRole($tutorRole);
+        
         return redirect()->route('tutores')->with('success', 'Tutor añadido correctamente.');
 
         } catch (\Exception) {

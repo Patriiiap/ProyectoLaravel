@@ -14,5 +14,6 @@ class Cita extends Model
     'fecha_fin',
     'id_usuario',
     'id_profesional',
+    'asistencia_realizada'
     ];
 }

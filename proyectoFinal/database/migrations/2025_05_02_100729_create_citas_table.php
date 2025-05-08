@@ -18,6 +18,7 @@ return new class extends Migration
             $table->datetime('fecha_fin');
             $table->unsignedBigInteger('id_usuario');
             $table->unsignedBigInteger('id_profesional');
+            $table->boolean('asistencia_realizada')->default(false);
             $table->foreign('id_usuario')->references('id')->on('usuarios')->onDelete('cascade');
             $table->foreign('id_profesional')->references('id')->on('profesionales')->onDelete('cascade');
             $table->unique(['id_usuario', 'id_profesional', 'fecha_inicio', 'fecha_fin'], 'cita_unica');

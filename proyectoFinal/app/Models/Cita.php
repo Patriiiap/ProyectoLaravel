@@ -8,6 +8,11 @@ class Cita extends Model
 {
     protected $table = 'citas';
 
+    protected $casts = [
+    'fecha_inicio' => 'datetime',
+    'fecha_fin' => 'datetime',
+    ];
+
     protected $fillable = [
     'cita',
     'fecha_inicio',

@@ -8,60 +8,110 @@ use Illuminate\Http\Request;
 
 class CitaController extends Controller
 {
-    public function index(Request $request)
+    public function getEventos(Request $request)
     {
-  
-        if($request->ajax()) {
-       
-             $data = Cita::whereDate('start', '>=', $request->start)
-                       ->whereDate('end',   '<=', $request->end)
-                       ->get(['id', 'title', 'start', 'end']);
-  
-             return response()->json($data);
+
+        $all_events = Cita::all();
+        $events = [];
+
+        foreach ($all_events as $event) {
+            $events[] = [
+                'title' => $event->cita, // usamos tu campo 'cita'
+                'start' => $event->fecha_inicio->toIso8601String(),
+                'end'   => $event->fecha_fin->toIso8601String(),
+            ];
         }
-  
-        return view('fullcalender');
+
+        return response()->json($events);
+
+        // if ($request->ajax()) {
+        //     $data = Cita::whereDate('start', '>=', $request->start)
+        //         ->whereDate('fecha_fin', '<=', $request->end)
+        //         ->get()
+        //         ->map(function ($cita) {
+        //             return [
+        //                 'id'    => $cita->id,
+        //                 'title' => $cita->cita, // usamos tu campo 'cita'
+        //                 'start' => $cita->fecha_inicio,
+        //                 'end'   => $cita->fecha_fin,
+        //             ];
+        //         });
+
+        //     return response()->json($data);
+        // }
+
+        // return view('fullcalender');
     }
- 
+
+    public function eventos(Request $request)
+    {
+        $data = Cita::whereDate('fecha_inicio', '>=', $request->start)
+            ->whereDate('fecha_fin', '<=', $request->end)
+            ->get()
+            ->map(function ($cita) {
+                return [
+                    'id'    => $cita->id,
+                    'title' => $cita->cita,
+                    'start' => $cita->fecha_inicio->toIso8601String(),
+                    'end'   => $cita->fecha_fin->toIso8601String(),
+                ];
+            });
+
+        return response()->json($data);
+    }
+
     /**
-     * Write code on Method
+     * Maneja las acciones de tipo 'add', 'update' y 'delete' sobre los eventos.
      *
-     * @return response()
+     * @param  Request  $request
+     * @return JsonResponse
      */
     public function ajax(Request $request): JsonResponse
     {
-        switch ($request->type) {
-           case 'add':
-              $event = Cita::create([
-                  'title' => $request->title,
-                  'start' => $request->start,
-                  'end' => $request->end,
-              ]);
- 
-              return response()->json($event);
-             break;
-  
-           case 'update':
-              $event = Cita::find($request->id)->update([
-                  'title' => $request->title,
-                  'start' => $request->start,
-                  'end' => $request->end,
-              ]);
- 
-              return response()->json($event);
-             break;
-  
-           case 'delete':
-              $event = Cita::find($request->id)->delete();
-  
-              return response()->json($event);
-             break;
-             
-           default:
-             # code...
-             break;
-        }
+        // Validación de los campos necesarios
+        $request->validate([
+            'title' => 'required|string',
+            'start' => 'required|date',
+            'end' => 'required|date',
+            'id' => 'nullable|exists:citas,id',  // Solo se valida si el ID está presente
+        ]);
 
-        return response()->json(['status' => 'success']);
+        switch ($request->type) {
+            case 'add':
+                $event = Cita::create([
+                    'cita'  => $request->title,  // Usamos 'cita' como campo para el título
+                    'fecha_inicio' => $request->start,
+                    'fecha_fin' => $request->end,
+                ]);
+
+                return response()->json(['status' => 'success', 'event' => $event]);
+
+            case 'update':
+                $event = Cita::find($request->id);
+                if ($event) {
+                    $event->update([
+                        'cita' => $request->title,
+                        'fecha_inicio' => $request->start,
+                        'fecha_fin' => $request->end,
+                    ]);
+
+                    return response()->json(['status' => 'success', 'event' => $event]);
+                } else {
+                    return response()->json(['status' => 'error', 'message' => 'Evento no encontrado.'], 404);
+                }
+
+            case 'delete':
+                $event = Cita::find($request->id);
+                if ($event) {
+                    $event->delete();
+
+                    return response()->json(['status' => 'success', 'message' => 'Evento eliminado correctamente.']);
+                } else {
+                    return response()->json(['status' => 'error', 'message' => 'Evento no encontrado.'], 404);
+                }
+
+            default:
+                return response()->json(['status' => 'error', 'message' => 'Acción no válida.'], 400);
+        }
     }
 }

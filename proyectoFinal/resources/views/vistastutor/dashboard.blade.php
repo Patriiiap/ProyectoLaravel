@@ -7,6 +7,10 @@
     <title>Dashboard Tutor</title>
     <link rel="stylesheet" href="{{ asset('css/vistas_tutor_css/dashboard.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 </head>
 
 <body>
@@ -60,59 +64,48 @@
             </ul>
         </section>
 
-        <section class="calendar-section">
-            <h3>marzo 2024</h3>
-            <div class="calendar">
-                <!-- Calendario simplificado -->
-                <div>L</div>
-                <div>M</div>
-                <div>X</div>
-                <div>J</div>
-                <div>V</div>
-                <div>S</div>
-                <div>D</div>
-                <!-- Celdas del calendario -->
-                <div class="empty"></div>
-                <div class="empty"></div>
-                <div class="empty"></div>
-                <div class="empty"></div>
-                <div class="date">1</div>
-                <div class="date">2</div>
-                <div class="date">3</div>
-                <div class="date">4</div>
-                <div class="date">5</div>
-                <div class="date">6</div>
-                <div class="date">7</div>
-                <div class="date">8</div>
-                <div class="date">9</div>
-                <div class="date">10</div>
-                <div class="date">11</div>
-                <div class="date">12</div>
-                <div class="date">13</div>
-                <div class="date selected">14</div>
-                <div class="date">15</div>
-                <div class="date">16</div>
-                <div class="date">17</div>
-                <div class="date">18</div>
-                <div class="date">19</div>
-                <div class="date">20</div>
-                <div class="date">21</div>
-                <div class="date">22</div>
-                <div class="date">23</div>
-                <div class="date">24</div>
-                <div class="date">25</div>
-                <div class="date">26</div>
-                <div class="date">27</div>
-                <div class="date">28</div>
-                <div class="empty"></div>
-                <div class="empty"></div>
-                <div class="empty"></div>
-            </div>
-        </section>
-    </main>
+        <div id="calendar">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+                    console.log('Inicializando FullCalendar...');
+                    let calendarEl = document.getElementById('calendar');
+            
+                    let calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'dayGridMonth',
+                        events: '/citas-eventos',
+                        allDaySlot: false,
+                        slotMinTime: "07:00:00", // Hora mínima visible (opcional)
+                        slotMaxTime: "21:00:00", // Hora máxima visible (opcional)
+                        contentHeight: 'auto',
+                        height: 'auto',
+                        slotMinHeight: 60,
+                        // 👇 Aquí se agregan los botones para cambiar de vista
+                        headerToolbar: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                        },
+            
+                        // Opcional: nombres personalizados para los botones
+                        buttonText: {
+                            today: 'Hoy',
+                            month: 'Mes',
+                            week: 'Semana',
+                            day: 'Día'
+                        },
+            
+                        height: 'auto',
+                        locale: 'es' // Si quieres que aparezca en español
+                    });
+            calendar.render();
+            });
+    </script>
 </body>
 
 </html>

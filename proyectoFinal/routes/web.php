@@ -69,7 +69,8 @@ Route::controller(AuthController::class)->group(function () {
         })->name('vistasprofesional.dashboard');
     //});
 
-    Route::get('/citas-eventos', [App\Http\Controllers\CitaController::class, 'getEventos']);
+    Route::get('/citas-eventos-tutores', [App\Http\Controllers\CitaController::class, 'getEventosTutores']);
+    Route::get('/citas-eventos-profesionales', [App\Http\Controllers\CitaController::class, 'getEventosProfesionales']);
 
     Route::get('/profile', [App\Http\Controllers\AuthController::class, 'profile'])->name('profile');  
 //});

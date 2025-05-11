@@ -75,7 +75,7 @@
             
                     let calendar = new FullCalendar.Calendar(calendarEl, {
                         initialView: 'dayGridMonth',
-                        events: '/citas-eventos',
+                        events: '/citas-eventos-profesionales',
                         allDaySlot: false,
                         slotMinTime: "07:00:00", // Hora mínima visible (opcional)
                         slotMaxTime: "21:00:00", // Hora máxima visible (opcional)

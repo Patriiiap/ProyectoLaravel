@@ -71,6 +71,14 @@ class CitaSeeder extends Seeder
                 'asistencia_realizada' => false,
             ],
             [
+                'cita' => 'Consulta dermatológica',
+                'fecha_inicio' => Carbon::parse('2025-05-11 12:30:00'),
+                'fecha_fin' => Carbon::parse('2025-05-11 13:15:00'),
+                'id_usuario' => 4,
+                'id_profesional' => 5,
+                'asistencia_realizada' => false,
+            ],
+            [
                 'cita' => 'Terapia de lenguaje',
                 'fecha_inicio' => Carbon::parse('2025-05-12 09:45:00'),
                 'fecha_fin' => Carbon::parse('2025-05-12 10:30:00'),

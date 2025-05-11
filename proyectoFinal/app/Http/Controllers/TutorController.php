@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tutor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 
@@ -137,5 +138,17 @@ class TutorController extends Controller
         $tutor = Tutor::findOrFail($id);
         $tutor->delete();
         return redirect()->route('tutores')->with('success', 'Tutor borrado correctamente');
+    }
+
+    public function getTutor()
+    {
+        $tutor = Auth::guard('tutor')->user();
+
+    // Asegúrate que $tutor es una instancia de Eloquent, no colección ni array
+        if ($tutor instanceof \App\Models\Tutor) {
+        // Carga la relación 'usuarios' correctamente
+            $tutor->load('usuarios');
+            return $tutor;
+        }
     }
 }

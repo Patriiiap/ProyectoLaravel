@@ -160,7 +160,22 @@ class UsuarioSeeder extends Seeder
                 'esMenor' => true,
                 'tutoria_propia' => false,
                 'id_tutor' => 10, // Relacionado con el tutor que tiene id 10
-                'parentesco' => 'Hijo',
+                'parentesco' => 'Hija',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Laura Jiménez',
+                'apellidos' => 'Mora',
+                'direccion' => 'Avenida del Río, 18, Madrid',
+                'dni' => '01239567J',
+                'fecha_nacimiento' => '2010-06-23',
+                'grado_discapacidad' => 75,
+                'descripcion' => 'Usuario con discapacidad intelectual severa.',
+                'esMenor' => true,
+                'tutoria_propia' => false,
+                'id_tutor' => 10, // Relacionado con el tutor que tiene id 10
+                'parentesco' => 'Hija',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]

@@ -29,4 +29,9 @@ class Usuario extends Model
     {
         return $this->belongsTo(Tutor::class, 'id_tutor');
     }
+
+    public function profesionales()
+    {
+        return $this->belongsToMany(Profesional::class, 'profesionales_usuarios');
+    }
 }

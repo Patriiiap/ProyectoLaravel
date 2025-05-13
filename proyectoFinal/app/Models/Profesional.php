@@ -38,4 +38,9 @@ class Profesional extends Authenticatable
             'password' => 'hashed'
         ];
     }
+
+    public function usuarios()
+    {
+        return $this->belongsToMany(Usuario::class, 'profesionales_usuarios');
+    }
 }

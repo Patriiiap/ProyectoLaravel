@@ -34,6 +34,9 @@ Route::controller(AuthController::class)->group(function () {
             Route::get('edit/{id}', 'edit')->name('profesionales.edit');
             Route::put('edit/{id}', 'update')->name('profesionales.update');
             Route::delete('destroy/{id}', 'destroy')->name('profesionales.destroy');
+            Route::get('assign-page/{id}', 'assignPage')->name('profesionales.assignPage');
+            Route::get('assign/{idUsuario}/{idProfesional}', 'assign')->name('profesionales.assign');
+            Route::delete('assign-destroy/{idUsuario}/{idProfesional}', 'assignDestroy')->name('profesionales.assignDestroy');
         });
 
         Route::controller(TutorController::class)->prefix('tutores')->group(function () {
@@ -54,6 +57,9 @@ Route::controller(AuthController::class)->group(function () {
             Route::get('edit/{id}', 'edit')->name('usuarios.edit');
             Route::put('edit/{id}', 'update')->name('usuarios.update');
             Route::delete('destroy/{id}', 'destroy')->name('usuarios.destroy');
+            Route::get('assign-page/{id}', 'assignPage')->name('usuarios.assignPage');
+            Route::get('assign/{idUsuario}/{idProfesional}', 'assign')->name('usuarios.assign');
+            Route::delete('assign-destroy/{idUsuario}/{idProfesional}', 'assignDestroy')->name('usuarios.assignDestroy');
         });
     });
 

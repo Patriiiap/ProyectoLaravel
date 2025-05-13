@@ -158,4 +158,48 @@ class ProfesionalController extends Controller
         $profesional->delete();
         return redirect()->route('profesionales')->with('success', 'Profesional borrado correctamente');
     }
+
+    public function profesionalesAptos(bool $esMenor)
+    {
+        if ($esMenor) {
+            return Profesional::where('esPati', true)->get();
+        } 
+        else{
+            return Profesional::where('esPap', true)->get();
+        }
+    }
+
+    public function getUsuariosAptos(string $idProfesional, bool $esPati, bool $esPap)
+    {
+        $usuarioController = new UsuarioController();
+        $usuariosAptos = $usuarioController->usuariosAptos($esPati, $esPap);
+
+        $profesional = Profesional::findOrFail($idProfesional);
+        $usuariosAsignados = $profesional->usuarios()->pluck('id')->toArray();
+
+        $usuariosAptosDisponibles = $usuariosAptos->filter(function ($usuario) use ($usuariosAsignados) {
+            return !in_array($usuario->id, $usuariosAsignados);
+        });
+        return $usuariosAptosDisponibles->values();
+    }
+
+    public function assignPage(string $id)
+    {
+        $profesional = Profesional::findOrFail($id);
+        return view('profesionales.assign', compact('profesional'));
+    }
+
+    public function assign(string $usuarioId, string $profesionalId)
+    {
+        $profesional = Profesional::findOrFail($profesionalId);
+        $profesional->usuarios()->attach($usuarioId);
+        return redirect()->route('profesionales.assignPage', $profesional->id)->with('success', 'Usuario asignado correctamente');
+    }
+
+    public function assignDestroy(string $usuarioId, string $profesionalId)
+    {
+        $profesional = Profesional::findOrFail($profesionalId);
+        $profesional->usuarios()->detach($usuarioId);
+        return redirect()->route('profesionales.assignPage', $profesional->id)->with('success', 'Usuario asignado correctamente');
+    }
 }

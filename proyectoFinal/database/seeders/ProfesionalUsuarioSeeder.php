@@ -9,19 +9,8 @@ use Illuminate\Database\Seeder;
 
 class ProfesionalUsuarioSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // // Suponiendo que ya existen usuarios y profesionales en la base de datos
-        // $usuario = Usuario::first(); // toma el primer usuario
-        // $profesionales = Profesional::take(3)->pluck('id'); // toma los primeros 3 profesionales
-
-        // // Asigna los profesionales al usuario
-        // $usuario->profesionales()->sync($profesionales); // agrega y sincroniza los 3
-
-        //Usuario 1 los profesionales 2, 3 y 4
         $usuario = Usuario::find(1);
 
         if ($usuario) {

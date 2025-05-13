@@ -145,24 +145,6 @@ class UsuarioController extends Controller
         } catch (Exception $e) {
             return redirect()->back()->withErrors($errores)->withInput();
         }
-
-        // $usuario = Usuario::findOrFail($id);
-
-        // $usuario->update([
-        //     'nombre' => $request->nombre,
-        //     'apellidos' => $request->apellidos,
-        //     'dni' => $request->dni,
-        //     'direccion' => $request->direccion,
-        //     'fecha_nacimiento' => $request->fecha_nacimiento,
-        //     'grado_discapacidad' => $request->grado_discapadidad,
-        //     'descripcion' => $request->descripcion,
-        //     'esMenor' => $request->has('esMenor'), // Convierte checkbox en booleano
-        //     'tutoria_propia' => $request->has('tutoria_propia'),
-        //     'id_tutor' => $request->id_tutor,
-        //     'parentesco' => $request->parentesco,
-        // ]);
-
-        // return redirect()->route('usuarios')->with('success', 'Usuario actualizado correctamente');
     }
 
     public function destroy(string $id)
@@ -171,4 +153,54 @@ class UsuarioController extends Controller
         $usuario->delete();
         return redirect()->route('usuarios')->with('success', 'Usuario borrado correctamente');
     }
+
+    public function usuariosAptos(bool $esPati, bool $esPap)
+    {
+        $usuarios = collect();
+
+        if ($esPati) {
+            $usuarios = $usuarios->merge(Usuario::where('esMenor', true)->get());
+        }
+
+        if ($esPap) {
+            $usuarios = $usuarios->merge(Usuario::where('esMenor', false)->get());
+        }
+
+        return $usuarios->unique('id')->values();
+    }
+
+    public function getProfesionalesAptos(string $idUsuario, bool $esMenor)
+    {
+        $profesionalController = new ProfesionalController();
+        $profesionalesAptos = $profesionalController->profesionalesAptos($esMenor);
+
+        $usuario = Usuario::findOrFail($idUsuario);
+        $profesionalesAsignados = $usuario->profesionales()->pluck('id')->toArray();
+
+        $profesionalesAptosDisponibles = $profesionalesAptos->filter(function ($profesional) use ($profesionalesAsignados) {
+            return !in_array($profesional->id, $profesionalesAsignados);
+        });
+        return $profesionalesAptosDisponibles->values();
+    }
+
+    public function assignPage(string $id)
+    {
+        $usuario = Usuario::findOrFail($id);
+        return view('usuarios.assign', compact('usuario'));
+    }
+
+    public function assign(string $usuarioId, string $profesionalId)
+    {
+        $usuario = Usuario::findOrFail($usuarioId);
+        $usuario->profesionales()->attach($profesionalId);
+        return redirect()->route('usuarios.assignPage', $usuario->id)->with('success', 'Profesional asignado correctamente');
+    }
+
+    public function assignDestroy(string $usuarioId, string $profesionalId)
+    {
+        $usuario = Usuario::findOrFail($usuarioId);
+        $usuario->profesionales()->detach($profesionalId);
+        return redirect()->route('usuarios.assignPage', $usuario->id)->with('success', 'Profesional eliminado correctamente');
+    }
+
 }

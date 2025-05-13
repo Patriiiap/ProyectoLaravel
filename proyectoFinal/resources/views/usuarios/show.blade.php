@@ -62,8 +62,48 @@
             </div>
         </div>
 
+        <div class="my-4">
+            <hr style="border-top: 1px solid #ccc;">
+        </div>
 
-        {{-- Línea separadora estilizada --}}
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <strong>Profesionales Asignados:</strong>
+                @if($usuario->profesionales->isEmpty())
+                <p class="text-muted">No hay profesionales asignados.</p>
+                @else
+                <table class="table table-striped mt-2">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Ver Ficha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($usuario->profesionales as $profesional)
+                        <tr>
+                            <td>{{ $profesional->nombre }} {{ $profesional->apellidos }}</td>
+                            <td>{{ $profesional->email }}</td>
+                            <td>{{ $profesional->telefono }}</td>
+                            <td><a href="{{ route('profesionales.show', $profesional->id) }}"
+                                    class="btn btn-primary">Ver
+                                    Ficha</a></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @endif
+
+                <div class="mb-3">
+                    <a href="{{ route('usuarios.assignPage', $usuario->id) }}" class="btn btn-primary">
+                        Asignar Profesional
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <div class="my-4">
             <hr style="border-top: 1px solid #ccc;">
         </div>

@@ -94,21 +94,22 @@ class CitaController extends Controller
         }
     }
 
-    public function getProximaCita(array $ids)
+    public function getProximaCitaTutor(array $ids)
     {
-        if(Auth::guard('tutor')->check()){
-            return Cita::with(['usuario', 'profesional'])
-            ->whereIn('id_usuario', $ids)
-            ->where('fecha_inicio', '>', now())
-            ->orderBy('fecha_inicio', 'asc')
-            ->first();
-        }
-        if(Auth::guard('profesional')->check()){
-            return Cita::with(['usuario', 'profesional'])
-            ->whereIn('id_profesional', $ids)
-            ->where('fecha_inicio', '>', now())
-            ->orderBy('fecha_inicio', 'asc')
-            ->first();
-        }
+        return Cita::with(['usuario', 'profesional'])
+        ->whereIn('id_usuario', $ids)
+        ->where('fecha_inicio', '>', now())
+        ->orderBy('fecha_inicio', 'asc')
+        ->first();
+        
+    }
+
+    public function getProximaCitaProfesional(string $id)
+    {
+        return Cita::with(['profesional', 'usuario'])
+        ->where('id_profesional', $id)
+        ->where('fecha_inicio', '>', now())
+        ->orderBy('fecha_inicio', 'asc')
+        ->first();
     }
 }

@@ -1,3 +1,8 @@
+<?php 
+    $profesionalGestionController = new App\Http\Controllers\ProfesionalGestionController();
+    $proximaCita = $profesionalGestionController->proximaCita();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -24,19 +29,6 @@
                     width="32" height="32" />
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                {{-- <a class="dropdown-item" href="/profile">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Activity Log
-                </a>
-                <div class="dropdown-divider"></div> --}}
                 <a class="dropdown-item" href="{{ route('logout') }}">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Logout
@@ -47,19 +39,29 @@
 
     <main class="dashboard">
         <div class="acciones">
-            <button>Ver todas las citas</button>
-            <button>Nueva cita</button>
-            <button>Ver facturas</button>
+            <a href="{{ route('vistasprofesional.dashboard') }}" class="btn btn-primary">Ver Facturas</a>
         </div>
 
         <section class="next-appointment">
-            <h2>Próxima cita <span class="status">Activo</span></h2>
+            <h2>Próxima cita
+                @if($proximaCita)
+                <span class="status">{{ $proximaCita['asistencia_realizada'] }}</span>
+                @endif
+            </h2>
+            @if($proximaCita)
             <ul>
-                <li><strong>📅</strong> 28 de marzo de 2024</li>
-                <li><strong>⏰</strong> 10:00</li>
-                <li><strong>👤</strong> Usuario de la cita: Juan Luna</li>
+                <li><strong>📅</strong> {{ \Carbon\Carbon::parse($proximaCita['fecha_inicio'])->format('d \d\e F \d\e
+                    Y') }}</li>
+                <li><strong>⏰</strong> {{ \Carbon\Carbon::parse($proximaCita['fecha_inicio'])->format('H:i') }} - {{
+                    \Carbon\Carbon::parse($proximaCita['fecha_fin'])->format('H:i') }}</li>
+                <li><strong>👤 Profesional:</strong> {{ $proximaCita['nombre_profesional'] }}</li>
+                <li><strong>👤 Usuario:</strong> {{ $proximaCita['nombre_usuario'] }}</li>
             </ul>
+            @else
+            <p>No tienes próximas citas.</p>
+            @endif
         </section>
+
         <div id="calendar">
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Profesional;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 
@@ -201,5 +202,11 @@ class ProfesionalController extends Controller
         $profesional = Profesional::findOrFail($profesionalId);
         $profesional->usuarios()->detach($usuarioId);
         return redirect()->route('profesionales.assignPage', $profesional->id)->with('success', 'Usuario asignado correctamente');
+    }
+
+    public function getProfesional()
+    {
+        $profesional = Auth::guard('profesional')->user();
+        return $profesional;
     }
 }

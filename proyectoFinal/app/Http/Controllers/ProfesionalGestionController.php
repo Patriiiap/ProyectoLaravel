@@ -4,36 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TutorGestionController extends Controller
+class ProfesionalGestionController extends Controller
 {
-    public function index(Request $request)
-    {
-        // Aquí puedes implementar la lógica para mostrar la lista de tutores
-        return view('tutores.index');
-    }
-
-    public function crearCita()
-    {
-        return view('vistastutor.crearCita');
-    }
-
-    public function storeCita(Request $request)
-    {
-        $citaController = new CitaController();
-        return $citaController->storeCita($request);
-    }
-
     public function proximaCita(){
         // Obtener tutor y los usuarios tutorizados
-        $tutorController = new TutorController();
-        $tutor = $tutorController->getTutor();
-
-        // Obtener IDs de usuarios tutorizados
-        $usuarioIds = $tutor->usuarios->pluck('id');
+        $profesionalController = new ProfesionalController();
+        $profesional = $profesionalController->getProfesional();
 
         // Obtener la próxima cita usando los IDs de los usuarios tutorizados
         $citaController = new CitaController();
-        $proximaCita = $citaController->getProximaCitaTutor($usuarioIds->toArray());
+        $proximaCita = $citaController->getProximaCitaProfesional($profesional->id);
 
         // Verificar si hay una próxima cita
         if ($proximaCita) {

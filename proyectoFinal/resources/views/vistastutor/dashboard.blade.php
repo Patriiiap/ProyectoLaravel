@@ -1,6 +1,10 @@
 <?php 
     $tutorGestionController = new App\Http\Controllers\TutorGestionController();
     $proximaCita = $tutorGestionController->proximaCita();
+
+    if(isset($proximaCita) && $proximaCita['recurrente']){
+        $tutorGestionController->storeCitaRecurrente($proximaCita);
+    }
 ?>
 
 <!DOCTYPE html>

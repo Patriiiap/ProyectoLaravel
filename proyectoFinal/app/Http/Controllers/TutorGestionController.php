@@ -49,7 +49,13 @@ class TutorGestionController extends Controller
                 'fecha_fin' => $proximaCita->fecha_fin,
                 'nombre_usuario' => $usuarioProximaCita->nombre . ' ' . $usuarioProximaCita->apellidos,
                 'nombre_profesional' => $profesionalProximaCita->nombre . ' ' . $profesionalProximaCita->apellidos,
+                'id_usuario' => $proximaCita->id_usuario,
+                'id_profesional' => $proximaCita->id_profesional,
                 'asistencia_realizada' => $proximaCita->asistencia_realizada,
+                'recurrente' => $proximaCita->recurrente,
+                'frecuencia' => $proximaCita->frecuencia,
+                'proxima_fecha_inicio' => $proximaCita->proxima_fecha_inicio,
+                'proxima_fecha_fin' => $proximaCita->proxima_fecha_fin,
             ];
 
             // Pasar los datos a la vista
@@ -58,5 +64,12 @@ class TutorGestionController extends Controller
             // Si no hay cita próxima, pasar mensaje vacío o un valor alternativo
             return null;
         }
+        
+    }
+
+    public function storeCitaRecurrente(array $cita)
+    {
+        $citaController = new CitaController();
+        return $citaController->storeCitaRecurrente($cita);
     }
 }

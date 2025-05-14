@@ -19,6 +19,10 @@ return new class extends Migration
             $table->unsignedBigInteger('id_usuario');
             $table->unsignedBigInteger('id_profesional');
             $table->string('asistencia_realizada')->default('pendiente');
+            $table->boolean('recurrente')->default(false);  // Indica si es recurrente
+            $table->integer('frecuencia')->default(0);  // Número de repeticiones si es recurrente
+            $table->dateTime('proxima_fecha_inicio')->nullable();  // Fecha de la próxima cita
+            $table->dateTime('proxima_fecha_fin')->nullable();  // Fecha de la próxima cita
             $table->foreign('id_usuario')->references('id')->on('usuarios')->onDelete('cascade');
             $table->foreign('id_profesional')->references('id')->on('profesionales')->onDelete('cascade');
             $table->unique(['id_usuario', 'id_profesional', 'fecha_inicio', 'fecha_fin'], 'cita_unica');

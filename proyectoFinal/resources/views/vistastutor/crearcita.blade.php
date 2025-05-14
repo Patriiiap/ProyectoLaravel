@@ -94,6 +94,16 @@
                                 placeholder="Describe brevemente el objetivo o contenido de la cita..."></textarea>
                         </div>
 
+                        <div class="form-group">
+                            <label for="recurrente">Cita Recurrente Semanalmente</label>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="recurrente" name="recurrente"
+                                    value="1">
+                                <label class="custom-control-label" for="recurrente">Marcar si la cita es recurrente
+                                    semanalmente</label>
+                            </div>
+                        </div>
+
                         <button type="submit" class="btn btn-success">Guardar Cita</button>
                     </form>
                 </div>

@@ -19,7 +19,11 @@ class Cita extends Model
     'fecha_fin',
     'id_usuario',
     'id_profesional',
-    'asistencia_realizada'
+    'asistencia_realizada',
+    'recurrente',
+    'frecuencia',
+    'proxima_fecha_inicio',
+    'proxima_fecha_fin',
     ];
 
     public function usuario()

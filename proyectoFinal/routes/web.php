@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CitaController;
 use App\Http\Controllers\ProfesionalController;
 use App\Http\Controllers\TutorController;
+use App\Http\Controllers\TutorGestionController;
 use App\Http\Controllers\UsuarioController;
+use App\Models\Cita;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -64,9 +67,12 @@ Route::controller(AuthController::class)->group(function () {
     });
 
     //Route::middleware('role:tutor')->group(function () {
-        Route::get('tutordashboard', function () {
-            return view('vistastutor.dashboard');  
-        })->name('vistastutor.dashboard');
+    Route::controller(TutorGestionController::class)->prefix('tutorgestion')->group(function () {
+        Route::get('tutordashboard', function () {return view('vistastutor.dashboard');})->name('vistastutor.dashboard');
+        Route::get('crear-cita', 'crearCita')->name('vistastutor.crearCita');
+        Route::post('citas/store', 'storeCita')->name('vistastutor.storeCita');
+    });
+        
     //});
 
     //Route::middleware('role:profesional')->group(function () {
@@ -75,8 +81,11 @@ Route::controller(AuthController::class)->group(function () {
         })->name('vistasprofesional.dashboard');
     //});
 
-    Route::get('/citas-eventos-tutores', [App\Http\Controllers\CitaController::class, 'getEventosTutores']);
-    Route::get('/citas-eventos-profesionales', [App\Http\Controllers\CitaController::class, 'getEventosProfesionales']);
+    Route::get('/citas-eventos-tutores', [CitaController::class, 'getEventosTutores']);
+    Route::get('/citas-eventos-profesionales', [CitaController::class, 'getEventosProfesionales']);
+    
+    //Rutas para crear nueva cita
+    Route::get('/api/usuarios/{id}/profesionales', [UsuarioController::class, 'getProfesionales']);
 
     Route::get('/profile', [App\Http\Controllers\AuthController::class, 'profile'])->name('profile');  
 //});

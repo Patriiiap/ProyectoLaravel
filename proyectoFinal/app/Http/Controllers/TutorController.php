@@ -144,9 +144,7 @@ class TutorController extends Controller
     {
         $tutor = Auth::guard('tutor')->user();
 
-    // Asegúrate que $tutor es una instancia de Eloquent, no colección ni array
         if ($tutor instanceof \App\Models\Tutor) {
-        // Carga la relación 'usuarios' correctamente
             $tutor->load('usuarios');
             return $tutor;
         }

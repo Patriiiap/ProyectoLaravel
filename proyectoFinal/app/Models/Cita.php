@@ -21,4 +21,14 @@ class Cita extends Model
     'id_profesional',
     'asistencia_realizada'
     ];
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'id_usuario');
+    }
+
+    public function profesional()
+    {
+        return $this->belongsTo(Profesional::class, 'id_profesional');
+    }
 }

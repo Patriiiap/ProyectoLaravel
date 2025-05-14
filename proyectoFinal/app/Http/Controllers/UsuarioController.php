@@ -203,4 +203,10 @@ class UsuarioController extends Controller
         return redirect()->route('usuarios.assignPage', $usuario->id)->with('success', 'Profesional eliminado correctamente');
     }
 
+    public function getProfesionales($id)
+    {
+        $usuario = Usuario::findOrFail($id);
+        return response()->json($usuario->profesionales()->select('id', 'nombre', 'apellidos')->get());
+    }
+
 }

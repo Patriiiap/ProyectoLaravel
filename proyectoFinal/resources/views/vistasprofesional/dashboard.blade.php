@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Profesional</title>
+    <title>CareSchedule Profesional</title>
     <link rel="stylesheet" href="{{ asset('css/vistas_profesional_css/dashboard.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FullCalendar CSS -->
@@ -43,14 +43,14 @@
                 </a>
             </div>
         </div>
+    </header>
+
+    <main class="dashboard">
         <div class="acciones">
             <button>Ver todas las citas</button>
             <button>Nueva cita</button>
             <button>Ver facturas</button>
         </div>
-    </header>
-
-    <main class="dashboard">
 
         <section class="next-appointment">
             <h2>Próxima cita <span class="status">Activo</span></h2>
@@ -61,8 +61,8 @@
             </ul>
         </section>
         <div id="calendar">
-        
-        
+
+
         </div>
     </main>
 

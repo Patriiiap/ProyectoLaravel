@@ -1,10 +1,15 @@
+<?php 
+    $tutorGestionController = new App\Http\Controllers\TutorGestionController();
+    $proximaCita = $tutorGestionController->proximaCita();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Tutor</title>
+    <title>CareSchedule Tutor</title>
     <link rel="stylesheet" href="{{ asset('css/vistas_tutor_css/dashboard.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FullCalendar CSS -->
@@ -23,45 +28,53 @@
                     width="32" height="32" />
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                {{-- <a class="dropdown-item" href="/profile">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Activity Log
-                </a>
-                <div class="dropdown-divider"></div> --}}
                 <a class="dropdown-item" href="{{ route('logout') }}">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Logout
                 </a>
             </div>
         </div>
-        <div class="acciones">
-            <button>Ver todas las citas</button>
-            <button>Nueva cita</button>
-            <button>Ver facturas</button>
-        </div>
     </header>
 
     <main class="dashboard">
+        @if(Session::has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('success') }}
+        </div>
+        @endif
+
+        <div class="acciones">
+            <a href="{{ route('vistastutor.crearCita') }}" class="btn btn-primary">Nueva Cita</a>
+            <a href="{{ route('vistastutor.crearCita') }}" class="btn btn-primary">Ver Facturas</a>
+        </div>
+
         <section class="user-info">
-            <h1>Mark Smith</h1>
-            <p>Usuario tutorizado</p>
+            <h2>Usuarios Tutorizados</h2>
+            @foreach (Auth::guard('tutor')->user()->usuarios as $usuario)
+            <p>
+                <?= $usuario->nombre . " " . $usuario->apellidos?>
+            </p>
+            @endforeach
         </section>
 
         <section class="next-appointment">
-            <h2>Próxima cita <span class="status">Activo</span></h2>
+            <h2>Próxima cita
+                @if($proximaCita)
+                <span class="status">{{ $proximaCita['asistencia_realizada'] }}</span>
+                @endif
+            </h2>
+            @if($proximaCita)
             <ul>
-                <li><strong>📅</strong> 28 de marzo de 2024</li>
-                <li><strong>⏰</strong> 10:00</li>
-                <li><strong>👤</strong> Dr. Emily Johnson</li>
+                <li><strong>📅</strong> {{ \Carbon\Carbon::parse($proximaCita['fecha_inicio'])->format('d \d\e F \d\e
+                    Y') }}</li>
+                <li><strong>⏰</strong> {{ \Carbon\Carbon::parse($proximaCita['fecha_inicio'])->format('H:i') }} - {{
+                    \Carbon\Carbon::parse($proximaCita['fecha_fin'])->format('H:i') }}</li>
+                <li><strong>👤 Profesional:</strong> {{ $proximaCita['nombre_profesional'] }}</li>
+                <li><strong>👤 Usuario:</strong> {{ $proximaCita['nombre_usuario'] }}</li>
             </ul>
+            @else
+            <p>No tienes próximas citas.</p>
+            @endif
         </section>
 
         <div id="calendar">

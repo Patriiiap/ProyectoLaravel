@@ -20,7 +20,7 @@ class CitaSeeder extends Seeder
                 'fecha_fin' => Carbon::parse('2025-05-05 10:00:00'),
                 'id_usuario' => 1,
                 'id_profesional' => 1,
-                'asistencia_realizada' => false,
+                'asistencia_realizada' => 'pendiente',
             ],
             [
                 'cita' => 'Revisión médica',
@@ -28,7 +28,7 @@ class CitaSeeder extends Seeder
                 'fecha_fin' => Carbon::parse('2025-05-06 12:00:00'),
                 'id_usuario' => 2,
                 'id_profesional' => 2,
-                'asistencia_realizada' => false,
+                'asistencia_realizada' => 'pendiente',
             ],
             [
                 'cita' => 'Chequeo pediátrico',
@@ -36,7 +36,7 @@ class CitaSeeder extends Seeder
                 'fecha_fin' => Carbon::parse('2025-05-07 09:30:00'),
                 'id_usuario' => 3,
                 'id_profesional' => 3,
-                'asistencia_realizada' => false,
+                'asistencia_realizada' => 'pendiente',
             ],
             [
                 'cita' => 'Control nutricional',
@@ -44,7 +44,7 @@ class CitaSeeder extends Seeder
                 'fecha_fin' => Carbon::parse('2025-05-08 11:00:00'),
                 'id_usuario' => 4,
                 'id_profesional' => 4,
-                'asistencia_realizada' => false,
+                'asistencia_realizada' => 'pendiente',
             ],
             [
                 'cita' => 'Consulta psicológica',
@@ -52,7 +52,7 @@ class CitaSeeder extends Seeder
                 'fecha_fin' => Carbon::parse('2025-05-09 16:00:00'),
                 'id_usuario' => 5,
                 'id_profesional' => 5,
-                'asistencia_realizada' => false,
+                'asistencia_realizada' => 'pendiente',
             ],
             [
                 'cita' => 'Seguimiento post-operatorio',
@@ -60,7 +60,7 @@ class CitaSeeder extends Seeder
                 'fecha_fin' => Carbon::parse('2025-05-10 15:00:00'),
                 'id_usuario' => 1,
                 'id_profesional' => 6,
-                'asistencia_realizada' => false,
+                'asistencia_realizada' => 'pendiente',
             ],
             [
                 'cita' => 'Consulta dermatológica',
@@ -68,7 +68,7 @@ class CitaSeeder extends Seeder
                 'fecha_fin' => Carbon::parse('2025-05-11 13:15:00'),
                 'id_usuario' => 2,
                 'id_profesional' => 7,
-                'asistencia_realizada' => false,
+                'asistencia_realizada' => 'pendiente',
             ],
             [
                 'cita' => 'Consulta dermatológica',
@@ -76,7 +76,7 @@ class CitaSeeder extends Seeder
                 'fecha_fin' => Carbon::parse('2025-05-11 13:15:00'),
                 'id_usuario' => 4,
                 'id_profesional' => 5,
-                'asistencia_realizada' => false,
+                'asistencia_realizada' => 'pendiente',
             ],
             [
                 'cita' => 'Terapia de lenguaje',
@@ -84,7 +84,7 @@ class CitaSeeder extends Seeder
                 'fecha_fin' => Carbon::parse('2025-05-12 10:30:00'),
                 'id_usuario' => 3,
                 'id_profesional' => 8,
-                'asistencia_realizada' => false,
+                'asistencia_realizada' => 'pendiente',
             ],
             [
                 'cita' => 'Evaluación cognitiva',
@@ -92,7 +92,7 @@ class CitaSeeder extends Seeder
                 'fecha_fin' => Carbon::parse('2025-05-13 14:00:00'),
                 'id_usuario' => 4,
                 'id_profesional' => 9,
-                'asistencia_realizada' => false,
+                'asistencia_realizada' => 'pendiente',
             ],
             [
                 'cita' => 'Consulta de rutina',
@@ -100,7 +100,7 @@ class CitaSeeder extends Seeder
                 'fecha_fin' => Carbon::parse('2025-05-14 12:30:00'),
                 'id_usuario' => 5,
                 'id_profesional' => 10,
-                'asistencia_realizada' => false,
+                'asistencia_realizada' => 'pendiente',
             ],
         ];
 

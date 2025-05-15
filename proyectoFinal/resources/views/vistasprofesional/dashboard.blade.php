@@ -62,17 +62,26 @@
             @endif
         </section>
 
-        <div id="calendar">
+        <div id="calendar"></div>
 
+        <!-- Tarjeta flotante -->
+        <div id="qr-popup" class="card shadow p-2" style="display: none; position: absolute; z-index: 999;">
+            <div class="card-body p-2">
+                <button id="generarQRBtn" class="btn btn-success btn-sm">Generar QR</button>
+            </div>
+        </div>
 
+        <!-- Botón para generar QR -->
+        <div id="qr-button-container" class="text-center">
+            <button id="generarQRBtn" class="btn btn-success">Generar QR</button>
         </div>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-                    console.log('Inicializando FullCalendar...');
                     let calendarEl = document.getElementById('calendar');
             
                     let calendar = new FullCalendar.Calendar(calendarEl, {
@@ -99,10 +108,33 @@
                             day: 'Día'
                         },
             
-                        height: 'auto',
-                        locale: 'es' // Si quieres que aparezca en español
+                        eventClick: function(info) {
+                            info.jsEvent.preventDefault();
+                        
+                            const popup = document.getElementById("qr-popup");
+                        
+                            // Posiciona la tarjeta justo donde se hizo clic
+                            popup.style.left = info.jsEvent.pageX + "px";
+                            popup.style.top = info.jsEvent.pageY + "px";
+                            popup.style.display = "block";
+                        
+                            // Configura el botón
+                            const botonQR = document.getElementById("generarQRBtn");
+                                botonQR.onclick = function () {
+                                alert("Generar QR para la cita con ID: " + info.event.id);
+                            };
+                        }
                     });
-            calendar.render();
+                calendar.render();
+
+                // Oculta el popup al hacer clic fuera de él
+                document.addEventListener("click", function(e) {
+                    const popup = document.getElementById("qr-popup");
+                
+                    if (!popup.contains(e.target) && !e.target.closest(".fc-event")) {
+                        popup.style.display = "none";
+                    }
+                });
             });
     </script>
 </body>

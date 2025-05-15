@@ -253,6 +253,10 @@ body {
     background-color: #059669;
 }
 
+#qr-button-container {
+    display: none;
+}
+
 /* Media query para móviles */
 @media (max-width: 768px) {
     .header {
@@ -301,7 +305,6 @@ body {
     /* Botones de navegación */
     .fc-button-group {
         width: 100%;
-        /* Aseguramos que los botones ocupen todo el ancho */
         display: flex;
         justify-content: space-between;
     }
@@ -310,13 +313,11 @@ body {
         font-size: 0.9rem;
         padding: 8px;
         width: 30%;
-        /* Hacemos que los botones sean más pequeños */
     }
 
     /* Para la vista de semana y día, ajustamos el tamaño de las celdas */
     .fc-timegrid-slot {
         height: 30px !important;
-        /* Reducimos la altura de las celdas */
     }
 
     /* Estilo para las celdas de los días en la vista de día/semana */
@@ -327,7 +328,6 @@ body {
 
     .fc-daygrid-day-number {
         font-size: 1rem;
-        /* Un poco más pequeño */
     }
 
     /* Ajustamos la vista mensual */
@@ -346,7 +346,5 @@ body {
     /* Evitar que las celdas de los días se sobrecarguen */
     .fc-daygrid-empty {
         display: none;
-        /* Ocultar celdas vacías */
     }
-
 }

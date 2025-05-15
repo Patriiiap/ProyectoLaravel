@@ -14,12 +14,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CareSchedule Tutor</title>
+
     <link rel="stylesheet" href="{{ asset('css/vistas_tutor_css/dashboard.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
-    <!-- FullCalendar JS -->
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 </head>
 
 <body>
@@ -40,28 +38,26 @@
         </div>
     </header>
 
-    <main class="dashboard">
+    <main class="dashboard container mt-4">
         @if(Session::has('success'))
         <div class="alert alert-success" role="alert">
             {{ Session::get('success') }}
         </div>
         @endif
 
-        <div class="acciones">
+        <div class="acciones mb-4">
             <a href="{{ route('vistastutor.crearCita') }}" class="btn btn-primary">Nueva Cita</a>
             <a href="{{ route('vistastutor.crearCita') }}" class="btn btn-primary">Ver Facturas</a>
         </div>
 
-        <section class="user-info">
+        <section class="user-info mb-4">
             <h2>Usuarios Tutorizados</h2>
             @foreach (Auth::guard('tutor')->user()->usuarios as $usuario)
-            <p>
-                <?= $usuario->nombre . " " . $usuario->apellidos?>
-            </p>
+            <p>{{ $usuario->nombre . " " . $usuario->apellidos }}</p>
             @endforeach
         </section>
 
-        <section class="next-appointment">
+        <section class="next-appointment mb-4">
             <h2>Próxima cita
                 @if($proximaCita)
                 <span class="status">{{ $proximaCita['asistencia_realizada'] }}</span>
@@ -81,47 +77,79 @@
             @endif
         </section>
 
-        <div id="calendar">
+        <div id="calendar" class="mb-4"></div>
 
-
+        <!-- Tarjeta flotante -->
+        <div id="qr-popup" class="card shadow p-2" style="display: none; position: absolute; z-index: 999;">
+            <div class="card-body p-2">
+                <button id="generarQRBtn" class="btn btn-success btn-sm">Generar QR</button>
+            </div>
+        </div>
+        
+        <!-- Botón para generar QR -->
+        <div id="qr-button-container" class="text-center">
+            <button id="generarQRBtn" class="btn btn-success">Generar QR</button>
         </div>
     </main>
+
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-                    console.log('Inicializando FullCalendar...');
-                    let calendarEl = document.getElementById('calendar');
-            
-                    let calendar = new FullCalendar.Calendar(calendarEl, {
-                        initialView: 'dayGridMonth',
-                        events: '/citas-eventos-tutores',
-                        allDaySlot: false,
-                        slotMinTime: "07:00:00", // Hora mínima visible (opcional)
-                        slotMaxTime: "21:00:00", // Hora máxima visible (opcional)
-                        contentHeight: 'auto',
-                        height: 'auto',
-                        slotMinHeight: 60,
-                        // 👇 Aquí se agregan los botones para cambiar de vista
-                        headerToolbar: {
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                        },
-            
-                        // Opcional: nombres personalizados para los botones
-                        buttonText: {
-                            today: 'Hoy',
-                            month: 'Mes',
-                            week: 'Semana',
-                            day: 'Día'
-                        },
-            
-                        height: 'auto',
-                        locale: 'es' // Si quieres que aparezca en español
-                    });
-            calendar.render();
+            const calendarEl = document.getElementById('calendar');
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: '/citas-eventos-tutores',
+                allDaySlot: false,
+                slotMinTime: "07:00:00",
+                slotMaxTime: "21:00:00",
+                contentHeight: 'auto',
+                locale: 'es',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                buttonText: {
+                    today: 'Hoy',
+                    month: 'Mes',
+                    week: 'Semana',
+                    day: 'Día'
+                },
+
+                eventClick: function(info) {
+                    info.jsEvent.preventDefault();
+                
+                    const popup = document.getElementById("qr-popup");
+                
+                    // Posiciona la tarjeta justo donde se hizo clic
+                    popup.style.left = info.jsEvent.pageX + "px";
+                    popup.style.top = info.jsEvent.pageY + "px";
+                    popup.style.display = "block";
+                
+                    // Configura el botón
+                    const botonQR = document.getElementById("generarQRBtn");
+                    botonQR.onclick = function () {
+                        alert("Generar QR para la cita con ID: " + info.event.id);
+                    };
+                }
             });
+
+            calendar.render();
+
+            // Oculta el popup al hacer clic fuera de él
+            document.addEventListener("click", function(e) {
+            const popup = document.getElementById("qr-popup");
+            
+            if (!popup.contains(e.target) && !e.target.closest(".fc-event")) {
+            popup.style.display = "none";
+            }
+            });
+        });
     </script>
 </body>
 

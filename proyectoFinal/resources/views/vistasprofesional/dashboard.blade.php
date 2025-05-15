@@ -67,13 +67,8 @@
         <!-- Tarjeta flotante -->
         <div id="qr-popup" class="card shadow p-2" style="display: none; position: absolute; z-index: 999;">
             <div class="card-body p-2">
-                <button id="generarQRBtn" class="btn btn-success btn-sm">Generar QR</button>
+                <a id="generarQRBtn" href="#" class="btn btn-primary">Generar QR</a>
             </div>
-        </div>
-
-        <!-- Botón para generar QR -->
-        <div id="qr-button-container" class="text-center">
-            <button id="generarQRBtn" class="btn btn-success">Generar QR</button>
         </div>
     </main>
 
@@ -117,12 +112,15 @@
                             popup.style.left = info.jsEvent.pageX + "px";
                             popup.style.top = info.jsEvent.pageY + "px";
                             popup.style.display = "block";
+
+                            const botonQR = document.getElementById("generarQRBtn");
+                            botonQR.href = "/qrcodes/generate/" + info.event.id;
                         
                             // Configura el botón
-                            const botonQR = document.getElementById("generarQRBtn");
-                                botonQR.onclick = function () {
-                                alert("Generar QR para la cita con ID: " + info.event.id);
-                            };
+                            // const botonQR = document.getElementById("generarQRBtn");
+                            //     botonQR.onclick = function () {
+                            //     alert("Generar QR para la cita con ID: " + info.event.id);
+                            // };
                         }
                     });
                 calendar.render();

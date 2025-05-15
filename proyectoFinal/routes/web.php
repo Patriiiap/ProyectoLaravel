@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\ProfesionalController;
+use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\TutorController;
 use App\Http\Controllers\TutorGestionController;
 use App\Http\Controllers\UsuarioController;
@@ -88,6 +89,11 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/api/usuarios/{id}/profesionales', [UsuarioController::class, 'getProfesionales']);
 
     Route::get('/profile', [App\Http\Controllers\AuthController::class, 'profile'])->name('profile');  
+
+    //Route::middleware(['auth'])->group(function () {
+        Route::get('qrcodes/create', [QrCodeController::class, 'create'])->name('qrcodes.create');
+        Route::get('qrcodes/generate/{id}', [QrCodeController::class, 'generarQR'])->name('qrcodes.generate');
+    //});
 //});
 
 

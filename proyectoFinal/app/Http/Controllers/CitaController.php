@@ -165,4 +165,8 @@ class CitaController extends Controller
                 'proxima_fecha_fin' => $proxima_fecha_fin,
             ]);
     }
+
+    public function getCita(string $id){
+        return Cita::find($id);
+    }
 }

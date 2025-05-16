@@ -34,6 +34,51 @@ class QrCodeController extends Controller
             'fecha_fin' => $cita->fecha_fin,
             'id_profesional' => $cita->id_profesional,
             'id_usuario' => $cita->id_usuario,
+            'token' => $this->generarTokenCita($cita) // Token de seguridad
+        ];
+        // Convertir a JSON (o al formato que prefieras)
+        $qrContent = json_encode($qrData);
+        
+        // Pasar datos a la vista
+        return view('qrcodes.create', [
+            'cita' => $cita,
+            'qrContent' => $qrContent
+        ]);
+    
+    }
+
+    private function generarTokenCita($cita)
+    {
+        // Crear un string único con los datos principales de la cita
+        $dataStr = $cita->id . $cita->profesional_id . $cita->usuario_id . $cita->fecha_inicio;
+        
+        // Generar un hash como token (puedes usar una clave secreta de la app)
+        return hash('sha256', $dataStr . config('app.key'));
+    }
+
+    public function scan(string $id)
+    {
+         // Buscar la cita en la base de datos
+         $citaController = new CitaController();
+         $cita = $citaController->getCita($id);
+         
+        return view('qrcodes.scan', [
+            'cita' => $cita
+        ]);
+    }
+
+    public function escanearQR(string $id){
+        // Buscar la cita en la base de datos
+        $citaController = new CitaController();
+        $cita = $citaController->getCita($id);
+        
+        // Datos que quieres incluir en el QR (ajusta según tus necesidades)
+        $qrData = [
+            'id' => $cita->id,
+            'fecha_inicio' => $cita->fecha_inicio,
+            'fecha_fin' => $cita->fecha_fin,
+            'id_profesional' => $cita->id_profesional,
+            'id_usuario' => $cita->id_usuario,
         ];
         // Convertir a JSON (o al formato que prefieras)
         $qrContent = json_encode($qrData);
@@ -120,10 +165,5 @@ class QrCodeController extends Controller
         
         // Para este ejemplo, devolvemos un valor simulado
         return "https://ejemplo.com/producto/123456";
-    }
-
-    public function show(QrCode $qrCode)
-    {
-        return view('qrcodes.show', compact('qrCode'));
     }
 }

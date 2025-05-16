@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CitaController extends Controller
 {
@@ -168,5 +169,95 @@ class CitaController extends Controller
 
     public function getCita(string $id){
         return Cita::find($id);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Procesar el escaneo de QR y confirmar la cita
+     */
+    public function confirmarCita(Request $request)
+    {
+        // Validar los datos recibidos del QR
+        $validator = Validator::make($request->all(), [
+            'cita_id' => 'required|numeric',
+            'profesional_id' => 'required|numeric',
+            'usuario_id' => 'required|numeric',
+            'token' => 'required|string'
+        ]);
+        
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Datos inválidos en el QR'
+            ], 400);
+        }
+        
+        // Buscar la cita
+        $cita = Cita::find($request->cita_id);
+        
+        // Verificar que la cita existe
+        if (!$cita) {
+            return response()->json([
+                'success' => false,
+                'message' => 'La cita no existe'
+            ], 404);
+        }
+        
+        // Verificar que el profesional y usuario coinciden
+        if ($cita->profesional_id != $request->profesional_id || $cita->usuario_id != $request->usuario_id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Los datos de la cita no coinciden'
+            ], 403);
+        }
+        
+        // Verificar el token para seguridad adicional
+        $calculatedToken = $this->generarTokenCita($cita);
+        if ($calculatedToken !== $request->token) {
+            return response()->json([
+                'success' => false,
+                'message' => 'El código QR no es auténtico'
+            ], 403);
+        }
+        
+        // Actualizar el estado de la cita a confirmada
+        $cita->estado = 'confirmada';
+        $cita->confirmada_at = now();
+        $cita->save();
+        
+        // Devolver respuesta exitosa
+        return response()->json([
+            'success' => true,
+            'message' => 'Cita confirmada correctamente',
+            'redirect_url' => route('citas.confirmacion', $cita->id)
+        ]);
+    }
+    
+    /**
+     * Mostrar página de confirmación exitosa
+     */
+    public function mostrarConfirmacion($id)
+    {
+        $cita = Cita::with(['profesional', 'usuario'])->findOrFail($id);
+        return view('citas.confirmacion', ['cita' => $cita]);
+    }
+    
+    /**
+     * Generar token de seguridad para la cita (debe ser igual que en QrController)
+     */
+    private function generarTokenCita($cita)
+    {
+        $dataStr = $cita->id . $cita->profesional_id . $cita->usuario_id . $cita->fecha_inicio;
+        return hash('sha256', $dataStr . config('app.key'));
+    }
+    
+    /**
+     * Mostrar vista para escanear QR
+     */
+    public function mostrarEscaneo(Request $request)
+    {
+        // Podemos recibir opcionalmente un ID de cita para verificar
+        return view('citas.escaneo', ['cita_id' => $request->query('cita_id')]);
     }
 }

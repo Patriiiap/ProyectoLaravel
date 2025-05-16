@@ -82,7 +82,7 @@
         <!-- Tarjeta flotante -->
         <div id="qr-popup" class="card shadow p-2" style="display: none; position: absolute; z-index: 999;">
             <div class="card-body p-2">
-                <a id="generarQRBtn" href="{{ route('qrcodes.create') }}" class="btn btn-primary">Generar QR</a>
+                <a id="generarQRBtn" href="#" class="btn btn-primary">Escanear QR</a>
             </div>
         </div>
     </main>
@@ -125,6 +125,9 @@
                     popup.style.left = info.jsEvent.pageX + "px";
                     popup.style.top = info.jsEvent.pageY + "px";
                     popup.style.display = "block";
+
+                    const botonQR = document.getElementById("generarQRBtn");
+                    botonQR.href = "/qrcodes/scan/" + info.event.id;
                 
                     // Configura el botón
                     // const botonQR = document.getElementById("generarQRBtn");

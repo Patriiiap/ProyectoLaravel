@@ -1,0 +1,140 @@
+/* Estilos generales */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #495057;
+    line-height: 1.6;
+    padding: 20px 0;
+}
+
+.container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+/* Tarjeta */
+.card {
+    max-width: 650px;
+    margin: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: none;
+}
+
+.card-header {
+    background-color: #0858ad !important;
+    color: white;
+    font-weight: 600;
+    font-size: 1.3rem;
+    padding: 15px 20px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom: none;
+}
+
+.card-body {
+    padding: 25px;
+    background-color: #ffffff;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* Texto centrado */
+.text-center {
+    text-align: center;
+}
+
+.lead {
+    font-size: 1.1rem;
+    color: #343a40;
+}
+
+/* Estilo para el lector QR */
+#reader {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 8px;
+    border: 2px dashed #ced4da;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+/* Resultado cargando */
+#result .spinner-border {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 10px;
+}
+
+/* Alertas */
+.alert {
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: none;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border-left: 4px solid #17a2b8;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid #dc3545;
+}
+
+/* Botones */
+.btn {
+    padding: 10px 24px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+}
+
+/* Margins */
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card {
+        margin: 0 15px;
+    }
+
+    .card-header {
+        font-size: 1.1rem;
+        padding: 12px 15px;
+    }
+
+    .card-body {
+        padding: 20px 15px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

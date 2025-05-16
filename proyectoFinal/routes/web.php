@@ -84,6 +84,7 @@ Route::controller(AuthController::class)->group(function () {
 
     Route::get('/citas-eventos-tutores', [CitaController::class, 'getEventosTutores']);
     Route::get('/citas-eventos-profesionales', [CitaController::class, 'getEventosProfesionales']);
+    Route::get('/citas-confirmar', [CitaController::class, 'confirmarCita'])->name('citas.confirmar');
     
     //Rutas para crear nueva cita
     Route::get('/api/usuarios/{id}/profesionales', [UsuarioController::class, 'getProfesionales']);
@@ -91,8 +92,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/profile', [App\Http\Controllers\AuthController::class, 'profile'])->name('profile');  
 
     //Route::middleware(['auth'])->group(function () {
-        Route::get('qrcodes/create', [QrCodeController::class, 'create'])->name('qrcodes.create');
         Route::get('qrcodes/generate/{id}', [QrCodeController::class, 'generarQR'])->name('qrcodes.generate');
+        Route::get('qrcodes/scan/{id}', [QrCodeController::class, 'scan'])->name('qrcodes.scan');
     //});
 //});
 

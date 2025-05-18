@@ -209,4 +209,13 @@ class UsuarioController extends Controller
         return response()->json($usuario->profesionales()->select('id', 'nombre', 'apellidos')->get());
     }
 
+    public function getUsuarioById(string $id)
+    {
+        $usuario = Usuario::find($id);
+        if (!$usuario) {
+            abort(404, 'Profesional no encontrado');
+        }
+        return $usuario;
+    }
+
 }

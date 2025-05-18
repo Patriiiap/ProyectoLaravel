@@ -260,4 +260,14 @@ class CitaController extends Controller
         // Podemos recibir opcionalmente un ID de cita para verificar
         return view('citas.escaneo', ['cita_id' => $request->query('cita_id')]);
     }
+
+    public function citasParaFactura($profesionalId, $usuarioId, $mes, $anio)
+    {
+        return Cita::where('id_usuario', $usuarioId)
+        ->where('id_profesional', $profesionalId)
+        ->whereYear('fecha_inicio', $anio)
+        ->whereMonth('fecha_inicio', $mes)
+        ->where('asistencia_realizada', 'realizada')
+        ->get();
+    }
 }

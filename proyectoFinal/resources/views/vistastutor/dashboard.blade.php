@@ -47,7 +47,7 @@
 
         <div class="acciones mb-4">
             <a href="{{ route('vistastutor.crearCita') }}" class="btn btn-primary">Nueva Cita</a>
-            <a href="{{ route('vistastutor.crearCita') }}" class="btn btn-primary">Ver Facturas</a>
+            <a href="{{ route('vistastutor.verFacturas') }}" class="btn btn-primary">Ver Facturas</a>
         </div>
 
         <section class="user-info mb-4">

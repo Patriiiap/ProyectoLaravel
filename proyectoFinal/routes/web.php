@@ -72,6 +72,8 @@ Route::controller(AuthController::class)->group(function () {
         Route::get('tutordashboard', function () {return view('vistastutor.dashboard');})->name('vistastutor.dashboard');
         Route::get('crear-cita', 'crearCita')->name('vistastutor.crearCita');
         Route::post('citas/store', 'storeCita')->name('vistastutor.storeCita');
+        Route::get('vistastutor/verFacturas', 'verFacturas')->name('vistastutor.verFacturas');
+        Route::post('vistastutor/generarFactura', 'generarFactura')->name('vistastutor.generarFactura');
     });
         
     //});

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class TutorGestionController extends Controller
@@ -71,5 +72,34 @@ class TutorGestionController extends Controller
     {
         $citaController = new CitaController();
         return $citaController->storeCitaRecurrente($cita);
+    }
+
+    public function verFacturas()
+    {
+        return view('vistastutor.facturas');
+    }
+
+    public function generarFactura(Request $request)
+    {
+        $request->validate([
+            'mes' => ['required', 'regex:/^\d{4}-(0[1-9]|1[0-2])$/']
+        ]);
+        $fechaInput = $request->input('mes'); // Ej: '2025-04'
+        [$anio, $mes] = explode('-', $fechaInput);
+
+        $tutorController = new TutorController();
+        $usuarioController = new UsuarioController();
+        $profesionalController = new ProfesionalController();
+
+        $tutor = $tutorController->getTutor();
+        $usuario = $usuarioController->getUsuarioById($request->input('usuario'));
+        $profesional = $profesionalController->getProfesionalById($request->input('profesional'));
+
+        $citaController = new CitaController();
+        $citas = $citaController->citasParaFactura($profesional->id, $usuario->id, $mes, $anio);
+        
+        $pdf = Pdf::loadView('vistastutor.facturaGenerada', ['profesional' => $profesional, 
+        'usuario' => $usuario, 'tutor' => $tutor, 'citas' => $citas, 'mes' => $mes, 'anio' => $anio]);
+        return $pdf->stream("factura_{$mes}_{$profesional->nombre}_{$usuario->nombre}.pdf");
     }
 }

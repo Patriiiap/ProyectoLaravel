@@ -209,4 +209,13 @@ class ProfesionalController extends Controller
         $profesional = Auth::guard('profesional')->user();
         return $profesional;
     }
+
+    public function getProfesionalById(string $id)
+    {
+        $profesional = Profesional::find($id);
+        if (!$profesional) {
+            abort(404, 'Profesional no encontrado');
+        }
+        return $profesional;
+    }
 }

@@ -20,6 +20,8 @@ class Cita extends Model
     'id_usuario',
     'id_profesional',
     'asistencia_realizada',
+    'confirma_tutor',
+    'confirma_profesional',
     'recurrente',
     'frecuencia',
     'proxima_fecha_inicio',

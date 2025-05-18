@@ -1,3 +1,9 @@
+<?php 
+    use app\Http\Controllers\UsuarioController;
+    $usuarioController = new UsuarioController();
+    $tutores = $usuarioController->getAllTutores();
+?>
+
 @extends('layouts.app')
 
 @section('title', 'Crear Usuario')
@@ -65,8 +71,15 @@
             @endif
         </div>
         <div class="col">
-            <label for="id_tutor">Id del Tutor</label>
-            <input type="number" name="id_tutor" class="form-control" placeholder="ID del Tutor">
+            <label for="id_tutor">Tutor</label>
+            <select name="id_tutor" class="form-control">
+                <option value="">-- Selecciona un tutor --</option>
+                @foreach ($tutores as $tutor)
+                <option value="{{ $tutor->id }}">
+                    {{ $tutor->nombre }} {{ $tutor->apellidos }}
+                </option>
+                @endforeach
+            </select>
             @if ($errors->has('id_tutor'))
             <span class="text-danger">{{ $errors->first('id_tutor') }}</span>
             @endif

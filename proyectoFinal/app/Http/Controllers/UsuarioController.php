@@ -209,6 +209,12 @@ class UsuarioController extends Controller
         return response()->json($usuario->profesionales()->select('id', 'nombre', 'apellidos')->get());
     }
 
+    public function getAllTutores()
+    {
+        $tutorController = new TutorController();
+        return $tutorController->getAllTutores();
+    }
+
     public function getUsuarioById(string $id)
     {
         $usuario = Usuario::find($id);

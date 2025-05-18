@@ -149,4 +149,9 @@ class TutorController extends Controller
             return $tutor;
         }
     }
+
+    public function getAllTutores()
+    {
+        return Tutor::all();
+    }
 }

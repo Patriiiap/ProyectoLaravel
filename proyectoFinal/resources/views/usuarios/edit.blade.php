@@ -1,3 +1,9 @@
+<?php 
+    use app\Http\Controllers\UsuarioController;
+    $usuarioController = new UsuarioController();
+    $tutores = $usuarioController->getAllTutores();
+?>
+
 @extends('layouts.app')
 
 @section('title', 'Editar Usuario')
@@ -71,9 +77,20 @@
         </div>
 
         <div class="col">
-            <label for="id_tutor">Id del Tutor</label>
-            <input type="number" name="id_tutor" class="form-control" placeholder="ID del Tutor"
-                value="{{ $usuario->id_tutor }}">
+            <label for="id_tutor">Tutor</label>
+            <select name="id_tutor" class="form-control">
+                <option value="{{ $usuario->tutor->id }}" selected>
+                    {{ $usuario->tutor->nombre }} {{$usuario->tutor->apellidos }} (Tutor actual)
+                </option>
+
+                @foreach ($tutores as $tutor)
+                @if ($tutor->id != $usuario->id_tutor)
+                <option value="{{ $tutor->id }}">
+                    {{ $tutor->nombre }} {{ $tutor->apellidos }}
+                </option>
+                @endif
+                @endforeach
+            </select>
         </div>
     </div>
     <div class="row">

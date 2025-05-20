@@ -117,67 +117,8 @@
     </main>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        $(document).ready(function () {
-                $('#usuario').on('change', function () {
-                    const usuarioId = $(this).val();
-                    $('#profesional').empty().append('<option value="">Cargando...</option>');
-        
-                    if (usuarioId) {
-                        $.ajax({
-                            url: `/api/usuarios/${usuarioId}/profesionales`,
-                            method: 'GET',
-                            success: function (data) {
-                                $('#profesional').empty().append('<option value="">-- Selecciona un profesional --</option>');
-                                data.forEach(function (profesional) {
-                                    $('#profesional').append(`<option value="${profesional.id}">${profesional.nombre} ${profesional.apellidos}</option>`);
-                                });
-                            },
-                            error: function () {
-                                $('#profesional').empty().append('<option value="">Error al cargar profesionales</option>');
-                            }
-                        });
-                    } else {
-                        $('#profesional').empty().append('<option value="">-- Selecciona un usuario primero --</option>');
-                    }
-                });
-            });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-                    console.log('Inicializando FullCalendar...');
-                    let calendarEl = document.getElementById('calendar');
-            
-                    let calendar = new FullCalendar.Calendar(calendarEl, {
-                        initialView: 'dayGridMonth',
-                        events: '/citas-eventos-tutores',
-                        allDaySlot: false,
-                        slotMinTime: "07:00:00", // Hora mínima visible (opcional)
-                        slotMaxTime: "21:00:00", // Hora máxima visible (opcional)
-                        contentHeight: 'auto',
-                        height: 'auto',
-                        slotMinHeight: 60,
-                        // 👇 Aquí se agregan los botones para cambiar de vista
-                        headerToolbar: {
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                        },
-            
-                        // Opcional: nombres personalizados para los botones
-                        buttonText: {
-                            today: 'Hoy',
-                            month: 'Mes',
-                            week: 'Semana',
-                            day: 'Día'
-                        },
-            
-                        height: 'auto',
-                        locale: 'es' // Si quieres que aparezca en español
-                    });
-            calendar.render();
-            });
-    </script>
+    <script src="{{ asset('js/tutor_crear_cita.js') }}"></script>
+    <script src="{{ asset('js/calendario_tutor.js') }}"></script>
 </body>
 
 </html>

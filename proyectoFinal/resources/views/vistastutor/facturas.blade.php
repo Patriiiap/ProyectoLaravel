@@ -67,33 +67,7 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-                $('#usuario').on('change', function () {
-                    const usuarioId = $(this).val();
-                    $('#profesional').empty().append('<option value="">Cargando...</option>');
-        
-                    if (usuarioId) {
-                        $.ajax({
-                            url: `/api/usuarios/${usuarioId}/profesionales`,
-                            method: 'GET',
-                            success: function (data) {
-                                $('#profesional').empty().append('<option value="">-- Selecciona un profesional --</option>');
-                                data.forEach(function (profesional) {
-                                    $('#profesional').append(`<option value="${profesional.id}">${profesional.nombre} ${profesional.apellidos}</option>`);
-                                });
-                            },
-                            error: function () {
-                                $('#profesional').empty().append('<option value="">Error al cargar profesionales</option>');
-                            }
-                        });
-                    } else {
-                        $('#profesional').empty().append('<option value="">-- Selecciona un usuario primero --</option>');
-                    }
-                });
-            });
-    </script>
+    <script src="{{ asset('js/tutor_generar_factura.js') }}"></script>
 </body>
 
 </html>

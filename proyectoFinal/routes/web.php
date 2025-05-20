@@ -87,6 +87,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/citas-eventos-tutores', [CitaController::class, 'getEventosTutores']);
     Route::get('/citas-eventos-profesionales', [CitaController::class, 'getEventosProfesionales']);
     Route::get('/citas-confirmar', [CitaController::class, 'confirmarCita'])->name('citas.confirmar');
+    Route::get('/citas-confirmar-boton-tutor/{idCita}', [CitaController::class, 'confirmarCitaByButtonTutor'])->name('citas.confirmar.boton.tutor');
+    Route::get('/citas-confirmar-boton-profesional/{idCita}', [CitaController::class, 'confirmarCitaByButtonProfesional'])->name('citas.confirmar.boton.profesional');
     
     //Rutas para crear nueva cita
     Route::get('/api/usuarios/{id}/profesionales', [UsuarioController::class, 'getProfesionales']);

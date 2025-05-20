@@ -171,6 +171,45 @@ class CitaController extends Controller
         return Cita::find($id);
     }
 
+    public function citasParaFactura($profesionalId, $usuarioId, $mes, $anio)
+    {
+        return Cita::where('id_usuario', $usuarioId)
+        ->where('id_profesional', $profesionalId)
+        ->whereYear('fecha_inicio', $anio)
+        ->whereMonth('fecha_inicio', $mes)
+        ->where('asistencia_realizada', 'realizada')
+        ->get();
+    }
+
+    public function confirmarCitaByButtonProfesional($idCita)
+    {
+        $cita = Cita::findOrFail($idCita);
+        $cita->confirma_profesional = true;
+        $cita->save();
+        $this->marcarCitaConfirmada($idCita);
+
+        return redirect()->route('vistasprofesional.dashboard')->with('success', 'La cita fue confirmada por el Profesional.');
+    }
+
+    public function confirmarCitaByButtonTutor($idCita)
+    {
+        $cita = Cita::findOrFail($idCita);
+        $cita->confirma_tutor = true;
+        $cita->save();
+        $this->marcarCitaConfirmada($idCita);
+
+        return redirect()->route('vistastutor.dashboard')->with('success', 'La cita fue confirmada por el Tutor.');
+    }
+
+    private function marcarCitaConfirmada($idCita){
+        $cita = Cita::findOrFail($idCita);
+
+        if ($cita->confirma_profesional && $cita->confirma_tutor) {
+            $cita->asistencia_realizada = 'realizada';
+            $cita->save();
+        }
+    }
+
     //////////////////////////////////////////////////////////////////////////////////////////
 
     /**
@@ -259,15 +298,5 @@ class CitaController extends Controller
     {
         // Podemos recibir opcionalmente un ID de cita para verificar
         return view('citas.escaneo', ['cita_id' => $request->query('cita_id')]);
-    }
-
-    public function citasParaFactura($profesionalId, $usuarioId, $mes, $anio)
-    {
-        return Cita::where('id_usuario', $usuarioId)
-        ->where('id_profesional', $profesionalId)
-        ->whereYear('fecha_inicio', $anio)
-        ->whereMonth('fecha_inicio', $mes)
-        ->where('asistencia_realizada', 'realizada')
-        ->get();
     }
 }

@@ -29,7 +29,40 @@
                 </a>
             </div>
         </div>
+
+        <div>
+            <a href="{{ route('vistastutor.dashboard') }}" class="btn btn-light btn-sm">← Volver</a>
+        </div>
     </header>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Confirmar Cita #{{ $cita->id }}</h2>
+            </div>
+            <div class="card-body text-center">
+                <div class="mb-4">
+                    <h3>Detalles de la Cita</h3>
+                    <p><strong>Fecha:</strong> {{ $cita->fecha_inicio }}</p>
+                    <p><strong>Hora:</strong> {{ $cita->fecha_fin }}</p>
+                    <p><strong>Profesional:</strong> {{ $cita->profesional->nombre ?? 'N/A' }}</p>
+                    <p><strong>Usuario:</strong> {{ $cita->usuario->nombre ?? 'N/A' }}</p>
+                    <p><strong>Estado:
+                            @if($cita->asistencia_realizada === 'realizada')
+                            <span style="color: green;">Realizada</span>
+                            @else
+                            <span style="color: red;">Pendiente</span>
+                            @endif
+                        </strong></p>
+                </div>
+
+                <div>
+                    <a href="{{ route('citas.confirmar.boton.tutor', $cita->id) }}" class="btn btn-primary">Confirmar
+                        Cita</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <div class="card">
@@ -76,12 +109,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="text-center mt-4">
-                    <a href="{{ route('vistastutor.dashboard') }}" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Volver al Calendario
-                    </a>
                 </div>
             </div>
         </div>

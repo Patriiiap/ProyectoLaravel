@@ -27,6 +27,9 @@
                 </a>
             </div>
         </div>
+        <div>
+            <a href="{{ route('vistastutor.dashboard') }}" class="btn btn-light btn-sm">← Volver</a>
+        </div>
     </header>
 
     <div class="dashboard">

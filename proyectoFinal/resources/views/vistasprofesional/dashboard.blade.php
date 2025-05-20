@@ -38,6 +38,11 @@
     </header>
 
     <main class="dashboard">
+        @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
         <div class="acciones">
             <a href="{{ route('vistasprofesional.dashboard') }}" class="btn btn-primary">Ver Facturas</a>
         </div>

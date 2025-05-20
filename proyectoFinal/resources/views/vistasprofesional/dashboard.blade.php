@@ -44,7 +44,7 @@
         </div>
         @endif
         <div class="acciones">
-            <a href="{{ route('vistasprofesional.dashboard') }}" class="btn btn-primary">Ver Facturas</a>
+            <a href="{{ route('vistasprofesional.verFacturas') }}" class="btn btn-primary">Ver Facturas</a>
         </div>
 
         <section class="next-appointment">

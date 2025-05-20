@@ -217,9 +217,9 @@ class UsuarioController extends Controller
 
     public function getUsuarioById(string $id)
     {
-        $usuario = Usuario::find($id);
+        $usuario = Usuario::with('tutor')->find($id);
         if (!$usuario) {
-            abort(404, 'Profesional no encontrado');
+            abort(404, 'Usuario no encontrado');
         }
         return $usuario;
     }

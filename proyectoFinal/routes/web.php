@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\ProfesionalController;
+use App\Http\Controllers\ProfesionalGestionController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\TutorController;
 use App\Http\Controllers\TutorGestionController;
@@ -75,14 +76,16 @@ Route::controller(AuthController::class)->group(function () {
         Route::get('vistastutor/verFacturas', 'verFacturas')->name('vistastutor.verFacturas');
         Route::post('vistastutor/generarFactura', 'generarFactura')->name('vistastutor.generarFactura');
     });
-        
     //});
 
     //Route::middleware('role:profesional')->group(function () {
-        Route::get('profesionaldashboard', function () {
-            return view('vistasprofesional.dashboard'); 
-        })->name('vistasprofesional.dashboard');
+        Route::controller(ProfesionalGestionController::class)->prefix('profesionalgestion')->group(function () {
+            Route::get('profesionaldashboard', function () {return view('vistasprofesional.dashboard'); })->name('vistasprofesional.dashboard');
+            Route::get('vistasprofesional/verFacturas', 'verFacturas')->name('vistasprofesional.verFacturas');
+            Route::post('vistasprofesional/generarFactura', 'generarFactura')->name('vistasprofesional.generarFactura');
+        });
     //});
+    
 
     Route::get('/citas-eventos-tutores', [CitaController::class, 'getEventosTutores']);
     Route::get('/citas-eventos-profesionales', [CitaController::class, 'getEventosProfesionales']);

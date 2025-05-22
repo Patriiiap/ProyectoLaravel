@@ -19,6 +19,12 @@
     </li>-->
 
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('administradores') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Administradores</span></a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('profesionales') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Profesionales</span></a>
@@ -36,11 +42,11 @@
             <span>Usuarios</span></a>
     </li>
 
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="/profile">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Profile</span></a>
-    </li>
+    </li> --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

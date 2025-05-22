@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfesionalGestionController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\TutorController;
 use App\Http\Controllers\TutorGestionController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\Cita;
 use Illuminate\Support\Facades\Route;
@@ -65,6 +66,15 @@ Route::controller(AuthController::class)->group(function () {
             Route::get('assign-page/{id}', 'assignPage')->name('usuarios.assignPage');
             Route::get('assign/{idUsuario}/{idProfesional}', 'assign')->name('usuarios.assign');
             Route::delete('assign-destroy/{idUsuario}/{idProfesional}', 'assignDestroy')->name('usuarios.assignDestroy');
+        });
+
+        Route::controller(UserController::class)->prefix('administradores')->group(function () {
+            Route::get('', 'index')->name('administradores');
+            Route::get('create', 'create')->name('administradores.create');
+            Route::post('store', 'store')->name('administradores.store');
+            Route::get('edit/{id}', 'edit')->name('administradores.edit');
+            Route::put('edit/{id}', 'update')->name('administradores.update');
+            Route::delete('destroy/{id}', 'destroy')->name('administradores.destroy');
         });
     });
 

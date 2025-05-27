@@ -38,11 +38,18 @@ document.addEventListener('DOMContentLoaded', function () {
             const botonQR = document.getElementById("generarQRBtn");
             botonQR.href = "/qrcodes/generate/" + info.event.id;
 
-            // Configura el botón
-            // const botonQR = document.getElementById("generarQRBtn");
-            //     botonQR.onclick = function () {
-            //     alert("Generar QR para la cita con ID: " + info.event.id);
-            // };
+            // Información de la cita
+            const infoCita = document.getElementById("info-cita");
+            infoCita.innerHTML = `
+            <strong>${info.event.title}</strong><br>
+            📅 ${new Date(info.event.start).toLocaleDateString()}<br>
+            ⏰ ${new Date(info.event.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+             - ${new Date(info.event.end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}<br>
+            👤 Profesional: ${info.event.extendedProps.nombre_profesional}<br>
+            👥 Usuario: ${info.event.extendedProps.nombre_usuario}<br>
+            📌 Estado: ${info.event.extendedProps.asistencia_realizada}
+            `;
+
         }
     });
     calendar.render();

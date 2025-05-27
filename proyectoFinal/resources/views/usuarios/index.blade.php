@@ -45,11 +45,8 @@
             <th>Id</th>
             <th>Nombre</th>
             <th>Apellidos</th>
-            <th>Dirección</th>
-            <th>DNI</th>
             <th>Fecha de Nacimiento</th>
             <th>Grado de Discapacidad</th>
-            <th>Descripción</th>
             <th>esMenor</th>
             <th>Parentesco</th>
             <th>Tutor</th>
@@ -63,11 +60,8 @@
             <td class="align-middle">{{ $usuario->id }}</td>
             <td class="align-middle">{{ $usuario->nombre }}</td>
             <td class="align-middle">{{ $usuario->apellidos }}</td>
-            <td class="align-middle">{{ $usuario->direccion }}</td>
-            <td class="align-middle">{{ $usuario->dni }}</td>
             <td class="align-middle">{{ $usuario->fecha_nacimiento }}</td>
             <td class="align-middle">{{ $usuario->grado_discapacidad . '%'}}</td>
-            <td class="align-middle">{{ $usuario->descripcion }}</td>
             <td class="align-middle">{{ $usuario->esMenor ? 'Sí' : 'No'}}</td>
             <td class="align-middle">{{ $usuario->parentesco }}</td>
             <td class="align-middle"><a href="{{ route('tutores.show', $usuario->tutor->id) }}">{{
@@ -75,13 +69,13 @@
             <td class="align-middle">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <a href="{{ route('usuarios.show', $usuario->id) }}" type="button"
-                        class="btn btn-secondary">Detail</a>
-                    <a href="{{ route('usuarios.edit', $usuario->id)}}" type="button" class="btn btn-warning">Edit</a>
+                        class="btn btn-secondary">Perfil</a>
+                    <a href="{{ route('usuarios.edit', $usuario->id)}}" type="button" class="btn btn-warning">Editar</a>
                     <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST" type="button"
                         class="btn btn-danger p-0" onsubmit="return confirm('Delete?')">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-danger m-0">Delete</button>
+                        <button class="btn btn-danger m-0">Borrar</button>
                     </form>
                 </div>
             </td>

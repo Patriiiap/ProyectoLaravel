@@ -47,7 +47,6 @@
             <th>Username</th>
             <th>Nombre</th>
             <th>Email</th>
-            <th>DNI</th>
             <th>Teléfono</th>
             <th>Es PATI</th>
             <th>Es PAP</th>
@@ -62,21 +61,20 @@
             <td class="align-middle">{{ $profesional->username }}</td>
             <td class="align-middle">{{ $profesional->nombre . " " . $profesional->apellidos}}</td>
             <td class="align-middle">{{ $profesional->email }}</td>
-            <td class="align-middle">{{ $profesional->dni }}</td>
             <td class="align-middle">{{ $profesional->telefono }}</td>
             <td class="align-middle">{{ $profesional->esPati ? 'Sí' : 'No'}}</td>
             <td class="align-middle">{{ $profesional->esPap ? 'Sí' : 'No'}}</td>
             <td class="align-middle">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <a href="{{ route('profesionales.show', $profesional->id) }}" type="button"
-                        class="btn btn-secondary">Detail</a>
+                        class="btn btn-secondary">Perfil</a>
                     <a href="{{ route('profesionales.edit', $profesional->id)}}" type="button"
-                        class="btn btn-warning">Edit</a>
+                        class="btn btn-warning">Editar</a>
                     <form action="{{ route('profesionales.destroy', $profesional->id) }}" method="POST" type="button"
                         class="btn btn-danger p-0" onsubmit="return confirm('Delete?')">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-danger m-0">Delete</button>
+                        <button class="btn btn-danger m-0">Borrar</button>
                     </form>
                 </div>
             </td>

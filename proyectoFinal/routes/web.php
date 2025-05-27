@@ -97,15 +97,21 @@ Route::controller(AuthController::class)->group(function () {
     //});
     
 
+    Route::controller(CitaController::class)->prefix('citas')->group(function () {
+        // Route::get('/eventos-tutores', 'getEventosTutores');
+        // Route::get('/eventos-profesionales', 'getEventosProfesionales');
+        Route::get('/eventos-borrar/{idCita}', 'destroyCita')->name('citas.destroy');
+        Route::get('/confirmar', 'confirmarCita')->name('citas.confirmar');
+        Route::get('/confirmar-boton-tutor/{idCita}', 'confirmarCitaByButtonTutor')->name('citas.confirmar.boton.tutor');
+        Route::get('/confirmar-boton-profesional/{idCita}', 'confirmarCitaByButtonProfesional')->name('citas.confirmar.boton.profesional');
+    });
     Route::get('/citas-eventos-tutores', [CitaController::class, 'getEventosTutores']);
     Route::get('/citas-eventos-profesionales', [CitaController::class, 'getEventosProfesionales']);
-    Route::get('/citas-confirmar', [CitaController::class, 'confirmarCita'])->name('citas.confirmar');
-    Route::get('/citas-confirmar-boton-tutor/{idCita}', [CitaController::class, 'confirmarCitaByButtonTutor'])->name('citas.confirmar.boton.tutor');
-    Route::get('/citas-confirmar-boton-profesional/{idCita}', [CitaController::class, 'confirmarCitaByButtonProfesional'])->name('citas.confirmar.boton.profesional');
     
     //Rutas para crear nueva cita
     Route::get('/api/usuarios/{id}/profesionales', [UsuarioController::class, 'getProfesionales']);
 
+    //Ruta al perfil
     Route::get('/profile', [App\Http\Controllers\AuthController::class, 'profile'])->name('profile');  
 
     //Route::middleware(['auth'])->group(function () {

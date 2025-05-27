@@ -28,10 +28,13 @@ class CitaController extends Controller
 
         foreach ($citas as $event) {
             $events[] = [
-                'id'   => $event->id,
+                'id' => $event->id,
                 'title' => $event->cita,
                 'start' => $event->fecha_inicio->toIso8601String(),
-                'end'   => $event->fecha_fin->toIso8601String(),
+                'end' => $event->fecha_fin->toIso8601String(),
+                'nombre_profesional' => $event->profesional ? $event->profesional->nombre : 'Sin profesional',
+                'nombre_usuario' => $event->usuario ? $event->usuario->nombre : 'Sin usuario',
+                'asistencia_realizada' => $event->asistencia_realizada
             ];
         }
         return response()->json($events);
@@ -56,6 +59,9 @@ class CitaController extends Controller
                 'title' => $event->cita,
                 'start' => $event->fecha_inicio->toIso8601String(),
                 'end'   => $event->fecha_fin->toIso8601String(),
+                'nombre_profesional' => $event->profesional ? $event->profesional->nombre : 'Sin profesional',
+                'nombre_usuario' => $event->usuario ? $event->usuario->nombre : 'Sin usuario',
+                'asistencia_realizada' => $event->asistencia_realizada
             ];
         }
         return response()->json($events);
@@ -208,6 +214,14 @@ class CitaController extends Controller
             $cita->asistencia_realizada = 'realizada';
             $cita->save();
         }
+    }
+
+    public function destroyCita($id)
+    {
+        $cita = Cita::findOrFail($id);
+        $cita->delete();
+
+        return redirect()->route('vistastutor.dashboard', Auth::guard('tutor')->user()->id)->with('success', 'Cita Eliminada correctamente');
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////

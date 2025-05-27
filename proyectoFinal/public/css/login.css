@@ -1,0 +1,103 @@
+/* Fondo degradado suave azul y blanco */
+body.bg-gradient-primary {
+    background: linear-gradient(135deg, #11377c, #2749a7) !important;
+    font-family: 'Nunito', sans-serif !important;
+    color: #204080 !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* Card login */
+.card.o-hidden {
+    background-color: #ffffff !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 30px rgba(32, 64, 128, 0.2) !important;
+    border: none !important;
+    padding: 40px !important;
+}
+
+/* Título */
+.text-center h1.h4 {
+    color: #204080 !important;
+    font-weight: 700 !important;
+    font-size: 1.8rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Inputs personalizados */
+.form-control-user {
+    background-color: #f5faff !important;
+    border: 2px solid #4a7edb !important;
+    border-radius: 30px !important;
+    padding: 15px 20px !important;
+    font-size: 1.1rem !important;
+    color: #204080 !important;
+    box-shadow: none !important;
+    transition: border-color 0.3s ease !important;
+}
+
+.form-control-user:focus {
+    border-color: #2a5298 !important;
+    background-color: #ffffff !important;
+    color: #1e3c72 !important;
+    outline: none !important;
+    box-shadow: 0 0 8px #4a7edb !important;
+}
+
+/* Checkbox label */
+.custom-control-label {
+    color: #204080 !important;
+    font-size: 0.9rem !important;
+}
+
+/* Botón azul personalizado */
+.btn-primary.btn-block.btn-user {
+    background: linear-gradient(90deg, #4a7edb, #2a5298) !important;
+    border: none !important;
+    border-radius: 30px !important;
+    padding: 15px !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    color: white !important;
+    box-shadow: 0 5px 15px rgba(32, 64, 128, 0.6) !important;
+    transition: background 0.3s ease !important;
+    cursor: pointer !important;
+}
+
+.btn-primary.btn-block.btn-user:hover {
+    background: linear-gradient(90deg, #2a5298, #4a7edb) !important;
+    box-shadow: 0 6px 20px rgba(50, 80, 160, 0.9) !important;
+}
+
+/* Mensajes de error */
+.alert.alert-danger {
+    background-color: #f8d7da !important;
+    color: #721c24 !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    padding: 15px !important;
+    margin-bottom: 20px !important;
+}
+
+/* Links (si usas alguno) */
+a {
+    color: #2a5298 !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+}
+
+a:hover {
+    color: #4a7edb !important;
+    text-decoration: underline !important;
+}
+
+@media (max-width: 576px) {
+    .text-center h1.h4 {
+        font-size: 1.2rem !important;
+        white-space: normal !important;
+    }
+}

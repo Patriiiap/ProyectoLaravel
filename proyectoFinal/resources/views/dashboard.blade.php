@@ -11,10 +11,36 @@
                 </h4>
             </div>
             <div class="card-body text-center">
-                <p class="lead">¡Estamos encantados de que estés aquí!</p>
-                <p>Desde este panel podrás gestionar todas las citas y profesionales de CareScheduler, asegurando un
-                    servicio accesible y eficiente para las personas con discapacidad y sus tutores.</p>
-                <p>Explora nuestras opciones y aprovecha todas las herramientas disponibles.</p>
+                <h2 class="mb-3">Bienvenido al Panel de Administración</h2>
+                <p class="lead mb-3">Desde aquí podrás gestionar los perfiles y asignaciones esenciales del sistema.</p>
+
+                <p>Las principales funciones de administración son:</p>
+                <ul class="text-left mx-auto" style="max-width: 600px;">
+                    <li><strong>Gestionar perfiles:</strong> Crear, actualizar, eliminar y visualizar los perfiles de
+                        profesionales,
+                        tutores y usuarios.</li>
+                    <li><strong>Control de acceso:</strong> Solo los tutores y profesionales tienen acceso para iniciar
+                        sesión en el
+                        sistema.</li>
+                    <li><strong>Creación ordenada de usuarios y tutores:</strong>
+                        <ul>
+                            <li>Primero, crea el perfil del tutor.</li>
+                            <li>Luego, al crear un usuario, se debe asignar un tutor existente.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Asignación de profesionales y tutores a usuarios:</strong>
+                        Puedes asignar a cada usuario su tutor correspondiente y los profesionales que lo atenderán,
+                        considerando el
+                        tipo de profesional y si el usuario es menor de edad o no.
+                    </li>
+                    <li><strong>Relación entre perfiles:</strong> Dentro de los perfiles de usuario y profesional puedes
+                        gestionar
+                        sus asignaciones mutuas para mantener la correcta vinculación.</li>
+                </ul>
+
+                <p class="mt-3">Sigue esta guía para mantener una gestión clara y organizada de los perfiles y sus
+                    relaciones en el
+                    sistema.</p>
             </div>
         </div>
     </div>

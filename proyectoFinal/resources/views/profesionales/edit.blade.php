@@ -88,7 +88,7 @@
     </div>
     <div class="row">
         <div class="d-grid">
-            <button class="btn btn-warning">Update</button>
+            <button class="btn btn-warning">Actualizar</button>
         </div>
     </div>
 </form>

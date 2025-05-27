@@ -37,7 +37,7 @@
         </div>
     </header>
 
-    <main class="dashboard">
+    <main class="dashboard container mt-4">
         @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -72,7 +72,8 @@
         <!-- Tarjeta flotante -->
         <div id="qr-popup" class="card shadow p-2" style="display: none; position: absolute; z-index: 999;">
             <div class="card-body p-2">
-                <a id="generarQRBtn" href="#" class="btn btn-primary">Generar QR</a>
+                <p id="info-cita" class="mb-2 small text-muted"></p>
+                <a id="generarQRBtn" href="#" class="btn btn-primary">Confirmar Cita</a>
             </div>
         </div>
     </main>

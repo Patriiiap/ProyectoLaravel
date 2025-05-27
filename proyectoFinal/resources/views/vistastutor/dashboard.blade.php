@@ -80,9 +80,11 @@
         <div id="calendar" class="mb-4"></div>
 
         <!-- Tarjeta flotante -->
-        <div id="qr-popup" class="card shadow p-2" style="display: none; position: absolute; z-index: 999;">
+        <div id="info-cita-popup" class="card shadow p-2" style="display: none; position: absolute; z-index: 999;">
             <div class="card-body p-2">
-                <a id="generarQRBtn" href="#" class="btn btn-primary">Escanear QR</a>
+                <p id="info-cita" class="mb-2 small text-muted"></p>
+                <a id="generarQRBtn" href="#" class="btn btn-primary btn-sm mb-1">Confirmar Cita</a>
+                <a id="eliminarCitaBtn" href="#" class="btn btn-danger btn-sm mb-1">Eliminar Cita</a>
             </div>
         </div>
     </main>

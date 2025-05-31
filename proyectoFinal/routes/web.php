@@ -26,6 +26,22 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('logout', 'logout')->middleware('auth')->name('logout');
 });
 
+// Recuperación de contraseña para profesionales
+Route::prefix('profesional')->group(function () {
+    Route::get('password/reset', [\App\Http\Controllers\Auth\ProfesionalForgotPasswordController::class, 'showLinkRequestForm'])->name('profesional.password.request');
+    Route::post('password/email', [\App\Http\Controllers\Auth\ProfesionalForgotPasswordController::class, 'sendResetLinkEmail'])->name('profesional.password.email');
+    Route::get('password/reset/{token}', [\App\Http\Controllers\Auth\ProfesionalResetPasswordController::class, 'showResetForm'])->name('profesional.password.reset');
+    Route::post('password/reset', [\App\Http\Controllers\Auth\ProfesionalResetPasswordController::class, 'reset'])->name('profesional.password.update');
+});
+
+// Recuperación de contraseña para tutores
+Route::prefix('tutor')->group(function () {
+    Route::get('password/reset', [\App\Http\Controllers\Auth\TutorForgotPasswordController::class, 'showLinkRequestForm'])->name('tutor.password.request');
+    Route::post('password/email', [\App\Http\Controllers\Auth\TutorForgotPasswordController::class, 'sendResetLinkEmail'])->name('tutor.password.email');
+    Route::get('password/reset/{token}', [\App\Http\Controllers\Auth\TutorResetPasswordController::class, 'showResetForm'])->name('tutor.password.reset');
+    Route::post('password/reset', [\App\Http\Controllers\Auth\TutorResetPasswordController::class, 'reset'])->name('tutor.password.update');
+});
+
 //Route::middleware('auth:web')->group(function () {
     Route::middleware('role:admin')->group(function () {
         Route::get('dashboard', function () {

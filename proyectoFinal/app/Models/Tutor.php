@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Notifications\TutorResetPasswordNotification;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
 class Tutor extends Authenticatable
 {
-    use SoftDeletes, HasRoles;
+    use SoftDeletes, HasRoles, Notifiable;
 
     protected $table = "tutores";
     protected $guard_name = 'tutor';
@@ -42,4 +43,10 @@ class Tutor extends Authenticatable
     {
         return $this->hasMany(Usuario::class, 'id_tutor');
     }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new TutorResetPasswordNotification($token));
+    }
+    
 }

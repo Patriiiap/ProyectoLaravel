@@ -72,6 +72,16 @@ body.bg-gradient-primary {
     box-shadow: 0 6px 20px rgba(50, 80, 160, 0.9) !important;
 }
 
+.olvidarContrasenya {
+    padding-top: 1rem !important;
+}
+
+.olvidarContrasenya a {
+    color: #2a5298 !important;
+    background-color: transparent !important;
+    border: transparent !important;
+}
+
 /* Mensajes de error */
 .alert.alert-danger {
     background-color: #f8d7da !important;

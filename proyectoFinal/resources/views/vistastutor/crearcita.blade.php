@@ -114,6 +114,15 @@
 
         </div>
 
+        <!-- Tarjeta flotante -->
+        <div id="info-cita-popup" class="card shadow p-2" style="display: none; position: absolute; z-index: 999;">
+            <div class="card-body p-2">
+                <p id="info-cita" class="mb-2 small text-muted"></p>
+                <a id="generarQRBtn" href="#" class="btn btn-primary btn-sm mb-1">Confirmar Cita</a>
+                <a id="eliminarCitaBtn" href="#" class="btn btn-danger btn-sm mb-1">Eliminar Cita</a>
+            </div>
+        </div>
+
     </main>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>

@@ -13,46 +13,53 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-11 col-lg-9 mx-auto">
+            <div class="col-12 col-md-8 col-lg-6">
 
-                <h1 class=" text-center mb-4">Restablecer Contraseña</h1>
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-4">
 
-                @if (session('status'))
-                <p class="text-success text-center fw-semibold">{{ session('status') }}</p>
-                @endif
+                        <h1 class="text-center mb-4">Restablecer Contraseña</h1>
 
-                @if ($errors->any())
-                <ul class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-                @endif
+                        @if (session('status'))
+                        <p class="text-success text-center fw-semibold">{{ session('status') }}</p>
+                        @endif
 
-                <form method="POST" action="{{ route('admin.password.update') }}">
-                    @csrf
+                        @if ($errors->any())
+                        <ul class="alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        @endif
 
-                    <input type="hidden" name="token" value="{{ $token }}">
+                        <form method="POST" action="{{ route('admin.password.update') }}">
+                            @csrf
 
-                    <div class="mb-3">
-                        <label for="email" class="form-label fw-semibold">Correo electrónico:</label>
-                        <input type="email" name="email" id="email" value="{{ old('email', $email) }}" required
-                            class="form-control" />
+                            <input type="hidden" name="token" value="{{ $token }}">
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-semibold">Correo electrónico:</label>
+                                <input type="email" name="email" id="email" value="{{ old('email', $email) }}" readonly
+                                    required class="form-control" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label fw-semibold">Nueva contraseña:</label>
+                                <input type="password" name="password" id="password" required class="form-control" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password_confirmation" class="form-label fw-semibold">Confirmar
+                                    contraseña:</label>
+                                <input type="password" name="password_confirmation" id="password_confirmation" required
+                                    class="form-control" />
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 fw-bold">Restablecer Contraseña</button>
+                        </form>
+
                     </div>
-
-                    <div class="mb-3">
-                        <label for="password" class="form-label fw-semibold">Nueva contraseña:</label>
-                        <input type="password" name="password" id="password" required class="form-control" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="password_confirmation" class="form-label fw-semibold">Confirmar contraseña:</label>
-                        <input type="password" name="password_confirmation" id="password_confirmation" required
-                            class="form-control" />
-                    </div>
-
-                    <button type="submit" class="btn btn-primary w-100 fw-bold">Restablecer Contraseña</button>
-                </form>
+                </div>
 
             </div>
         </div>

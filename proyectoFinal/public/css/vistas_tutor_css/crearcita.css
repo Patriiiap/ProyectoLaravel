@@ -4,14 +4,27 @@ body {
 }
 
 .card {
-    max-width: 600px;
-    margin: auto;
+    background-color: #ffffff;
+    /* fondo blanco */
     border-radius: 12px;
 }
 
 .card-header {
+    background-color: #ffffff;
+    /* también blanco para el header */
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    /* línea suave debajo del header */
+    padding-bottom: 0.5rem;
+}
+
+.card-header h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1d4ed8;
+    /* azul vibrante */
+    margin-bottom: 0;
 }
 
 .btn-success {

@@ -46,12 +46,12 @@
                                         <div class="form-group">
                                             <input name="email" type="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                                placeholder="Ingresa tu email">
                                         </div>
                                         <div class="form-group">
                                             <input name="password" type="password"
                                                 class="form-control form-control-user" id="exampleInputPassword"
-                                                placeholder="Password">
+                                                placeholder="Contraseña">
                                         </div>
                                         {{-- <div class="form-group">
                                             <div class="custom-control custom-checkbox small">

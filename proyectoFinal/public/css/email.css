@@ -1,69 +1,51 @@
-/* Fondo degradado azul */
 body {
     background: linear-gradient(135deg, #11377c, #2749a7);
     font-family: 'Nunito', sans-serif;
-    color: #204080;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    box-sizing: border-box;
+    margin: 0 auto;
 }
 
-/* Contenedor central tipo card */
-.container {
+.reset-card {
     background-color: #ffffff;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(32, 64, 128, 0.2);
-    padding: 40px;
     width: 100%;
     max-width: 480px;
-    text-align: center;
-    box-sizing: border-box;
-
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
 }
 
-/* Título */
-.container h1 {
+h1 {
     color: #204080;
     font-weight: 700;
     font-size: 1.8rem;
-    margin-bottom: 2rem;
 }
 
 .alert-success {
-    padding-bottom: 1rem;
     color: green;
     font-weight: bold;
 }
 
 .alert-danger {
-    padding-bottom: 1rem;
     color: red;
     font-weight: bold;
 }
 
-.alert-danger ul li {
-    list-style-type: none;
-}
-
-/* Inputs personalizados */
-input[type="email"] {
-    width: 100%;
-    padding: 15px 20px;
+.form-control-user {
+    background-color: #f5faff;
     border: 2px solid #4a7edb;
     border-radius: 30px;
-    background-color: #f5faff;
+    padding: 15px 20px;
     font-size: 1.1rem;
     color: #204080;
-    box-shadow: none;
     transition: border-color 0.3s ease;
-    box-sizing: border-box;
-    margin-bottom: 1.2rem;
-    /* espacio abajo para separar del botón */
 }
 
-input[type="email"]:focus {
+.form-control-user:focus {
     border-color: #2a5298;
     background-color: #ffffff;
     color: #1e3c72;
@@ -71,53 +53,30 @@ input[type="email"]:focus {
     box-shadow: 0 0 8px #4a7edb;
 }
 
-/* Botón azul */
-button[type="submit"] {
-    width: 100%;
-    padding: 15px;
+.btn-user {
+    background: linear-gradient(90deg, #4a7edb, #2a5298);
     border: none;
     border-radius: 30px;
-    background: linear-gradient(90deg, #4a7edb, #2a5298);
-    color: white;
+    padding: 15px;
     font-weight: 700;
     font-size: 1.1rem;
+    color: white;
     box-shadow: 0 5px 15px rgba(32, 64, 128, 0.6);
-    cursor: pointer;
     transition: background 0.3s ease;
 }
 
-button[type="submit"]:hover {
+.btn-user:hover {
     background: linear-gradient(90deg, #2a5298, #4a7edb);
     box-shadow: 0 6px 20px rgba(50, 80, 160, 0.9);
 }
 
-/* Mensajes de estado */
-p {
-    font-weight: 600;
-    margin-top: 1rem;
-}
-
-p[style*="green"] {
-    color: green;
-}
-
-/* Errores */
-ul {
-    padding-left: 1.25rem;
-    list-style: disc;
-    color: #721c24;
-    background-color: #f8d7da;
-    border-radius: 12px;
-    font-weight: 600;
-    padding: 15px;
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-/* Responsive */
 @media (max-width: 576px) {
-    .container h1 {
+    h1 {
         font-size: 1.4rem;
-        white-space: normal;
+    }
+
+    .reset-card {
+        margin: 20px;
+        padding: 20px;
     }
 }

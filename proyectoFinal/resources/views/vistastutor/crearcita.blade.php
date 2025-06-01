@@ -49,7 +49,7 @@
 
         <div class="container mt-2">
             <div class="card shadow-lg rounded-lg">
-                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Crear Nueva Cita</h4>
                 </div>
                 <div class="card-body">

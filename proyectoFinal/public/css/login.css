@@ -82,6 +82,17 @@ body.bg-gradient-primary {
     border: transparent !important;
 }
 
+.btn-forgot-pass {
+    text-decoration: none !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.btn-forgot-pass:hover {
+    text-decoration: none !important;
+    color: white !important;
+}
+
 /* Mensajes de error */
 .alert.alert-danger {
     background-color: #f8d7da !important;

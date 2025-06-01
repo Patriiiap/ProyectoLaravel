@@ -64,12 +64,9 @@
                                         <button type="submit" class="btn btn-primary btn-block btn-user">Login</button>
                                     </form>
                                     <div class="olvidarContrasenya">
-                                        <a href="{{ route('tutor.password.request') }}"
-                                            class="btn btn-primary">¿Olvidaste
+                                        <a href="{{ route('forgot.password') }}" class="btn btn-primary">¿Olvidaste
                                             tu
-                                            contraseña? - Tutor</a>
-                                        <a href="{{ route('profesional.password.request') }}"
-                                            class="btn btn-primary">¿Olvidaste tu contraseña? - Profesional</a>
+                                            contraseña?</a>
                                     </div>
                                 </div>
                             </div>

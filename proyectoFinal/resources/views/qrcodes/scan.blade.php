@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!--<meta http-equiv="Permissions-Policy" content="camera=(self), microphone=(self)">-->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/vistas_qr_css/scan.css') }}">
     <link rel="stylesheet" href="{{ asset('css/vistas_profesional_css/dashboard.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">

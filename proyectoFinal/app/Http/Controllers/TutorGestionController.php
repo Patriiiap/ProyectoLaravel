@@ -15,7 +15,7 @@ class TutorGestionController extends Controller
 
     public function crearCita()
     {
-        return view('vistastutor.crearCita');
+        return view('vistastutor.crearcita');
     }
 
     public function storeCita(Request $request)

@@ -8,24 +8,23 @@ $citasPorDia = $citas->groupBy(function($cita) {
     return Carbon::parse($cita->fecha_inicio)->day;
 });
 
-
-
-// Cálculo de horas totales (movido desde la parte inferior)
+// Función para calcular duración en formato hh:mm:ss (siempre positiva)
 function calcularTiempoTotal($segundos) {
-    $horas = floor($segundos / 3600);
-    $minutos = floor(($segundos % 3600) / 60);
-    $segundosRestantes = $segundos % 60;
+    $segundosAbs = abs($segundos);
+    $horas = floor($segundosAbs / 3600);
+    $minutos = floor(($segundosAbs % 3600) / 60);
+    $segundosRestantes = $segundosAbs % 60;
     return sprintf('%d:%02d:%02d', $horas, $minutos, $segundosRestantes);
 }
 
 // Horas estándar a realizar (32 horas)
 $horasEstandar = 32 * 3600; // 32 horas en segundos
 
-// Variables que se calcularán después de procesar el bucle de días
+// Variables para resultados finales
 $tiempoTotal = '0:00:00';
 $desviacionFormato = '0:00:00';
 
-// Para este ejemplo, simplemente mostraremos valores fijos para las desviaciones
+// Valores para desviaciones previas (puedes ajustar o eliminar)
 $desviacionAnterior = '##############';
 $desviacionTotal = '##################';
 ?>
@@ -165,13 +164,11 @@ $desviacionTotal = '##################';
             </tr>
         </thead>
         <tbody>
-            @for ($dia = 1; $dia <= $diasMes; $dia++) @php $entrada='' ; $salida='' ; $duracion='0:00:00' ;
-                if($citasPorDia->has($dia)) {
-                // Si hay citas para este día
+            @for ($dia = 1; $dia <= $diasMes; $dia++) @php $entrada='' ; $salida='' ; $duracion='0:00:00' ; if
+                ($citasPorDia->has($dia)) {
                 $citasDelDia = $citasPorDia[$dia];
                 $segundosDia = 0;
 
-                // Encontrar primera entrada y última salida
                 $primeraEntrada = null;
                 $ultimaSalida = null;
 
@@ -179,29 +176,20 @@ $desviacionTotal = '##################';
                 $inicioTime = Carbon::parse($cita->fecha_inicio);
                 $finTime = Carbon::parse($cita->fecha_fin);
 
-                // Determinar primera entrada
                 if ($primeraEntrada === null || $inicioTime->lt($primeraEntrada)) {
                 $primeraEntrada = $inicioTime;
                 }
-
-                // Determinar última salida
                 if ($ultimaSalida === null || $finTime->gt($ultimaSalida)) {
                 $ultimaSalida = $finTime;
                 }
 
-                // Sumar segundos de esta cita (tiempo que duró la cita)
                 $segundosCita = $finTime->diffInSeconds($inicioTime);
                 $segundosDia += $segundosCita;
                 }
 
-                // Formato para mostrar
                 $entrada = $primeraEntrada->format('H:i:s');
                 $salida = $ultimaSalida->format('H:i:s');
-
-                // Calcular horas, minutos y segundos para el formato de duración
                 $duracion = calcularTiempoTotal($segundosDia);
-
-                // Sumar al total
                 $totalSegundos += $segundosDia;
                 }
                 @endphp
@@ -216,42 +204,18 @@ $desviacionTotal = '##################';
         </tbody>
     </table>
 
-    <?php
-    // Actualizar cálculos después de procesar todos los días
+    @php
+    // Calcular totales y desviaciones después del bucle
     $tiempoTotal = calcularTiempoTotal($totalSegundos);
-
-    // Cálculo de desviación en segundos
     $desviacionSegundos = $totalSegundos - $horasEstandar;
-
-    // Convertir desviación a formato hh:mm:ss con signo
     $signo = $desviacionSegundos >= 0 ? '+' : '-';
     $desviacionAbs = abs($desviacionSegundos);
     $desviacionFormato = $signo . calcularTiempoTotal($desviacionAbs);
-    ?>
+    @endphp
 
     <div class="totals">
         HORAS TOTALES MENSUALES: {{ $tiempoTotal }}
     </div>
-
-    <!-- Tabla de totales -->
-    <table class="footer-table">
-        <tr>
-            <td><strong>SEMANAS * HORAS</strong></td>
-            <td>4*8=32 horas</td>
-        </tr>
-        <tr>
-            <td>A REALIZAR</td>
-            <td>32:00:00</td>
-            <td>DÍAS BAJA</td>
-            <td>0</td>
-            <td>DESVIACIÓN</td>
-            <td>{{ $desviacionFormato }}</td>
-            <td>DESV. ANTERIOR</td>
-            <td>{{ $desviacionAnterior }}</td>
-            <td>DESVIACIÓN TOTAL</td>
-            <td>{{ $desviacionTotal }}</td>
-        </tr>
-    </table>
 
     <!-- Nota legal -->
     <p class="legal-note">

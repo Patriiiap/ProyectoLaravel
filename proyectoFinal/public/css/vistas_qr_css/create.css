@@ -45,6 +45,11 @@ body {
     border-bottom-right-radius: 12px;
 }
 
+.qr-container {
+    display: flex;
+    justify-content: center;
+}
+
 /* Estilos de formulario */
 .form-label {
     font-weight: 500;

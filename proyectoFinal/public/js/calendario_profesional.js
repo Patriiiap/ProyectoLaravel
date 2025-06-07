@@ -5,19 +5,19 @@ document.addEventListener('DOMContentLoaded', function () {
         initialView: 'dayGridMonth',
         events: '/citas-eventos-profesionales',
         allDaySlot: false,
-        slotMinTime: "07:00:00", // Hora mínima visible (opcional)
-        slotMaxTime: "21:00:00", // Hora máxima visible (opcional)
+        slotMinTime: "07:00:00",
+        slotMaxTime: "21:00:00",
         contentHeight: 'auto',
         height: 'auto',
         slotMinHeight: 60,
-        // 👇 Aquí se agregan los botones para cambiar de vista
+        locale: 'es',
+        //botones para cambiar de vista (mes, semana, dia)
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
 
-        // Opcional: nombres personalizados para los botones
         buttonText: {
             today: 'Hoy',
             month: 'Mes',

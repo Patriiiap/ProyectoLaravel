@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const eliminarBtn = document.getElementById("eliminarCitaBtn");
 
             // Mostrar botón solo si la cita es futura
-            if (fechaCita > ahora) {
+            if (fechaCita > ahora && info.event.extendedProps.asistencia_realizada !== 'realizada') {
                 eliminarBtn.href = "/citas/eventos-borrar/" + info.event.id;
                 eliminarBtn.style.display = 'inline-block';
             } else {
